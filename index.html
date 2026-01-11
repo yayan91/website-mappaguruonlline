@@ -47,6 +47,7 @@
         body.dark-mode .hero { filter: brightness(0.8); }
         body.dark-mode .app-cat { background: #333; color: var(--accent); }
         body.dark-mode .btn-card { background: #333; color: var(--accent); }
+        body.dark-mode .nav-link { background: rgba(255,255,255,0.05); }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         body { 
@@ -74,18 +75,18 @@
         @keyframes blinkCursor { from, to { border-color: transparent } 50% { border-color: var(--accent) } }
         @keyframes loadProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
-        /* NAVIGASI */
+        /* NAVIGASI UTAMA */
         .top-bar { background: var(--primary-dark); color: #e0e0e0; font-size: 0.85rem; padding: 8px 0; position: relative; z-index: 101; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
         .top-flex { display: flex; justify-content: space-between; align-items: center; }
         
-        header { position: sticky; top: 15px; z-index: 1000; padding: 0 20px; margin-bottom: 30px; }
+        header { position: sticky; top: 15px; z-index: 1000; padding: 0 20px; margin-bottom: 30px; transition: all 0.3s; }
         .navbar {
             background: var(--card-bg); backdrop-filter: blur(10px);
             max-width: 1280px; margin: 0 auto; border-radius: 50px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 10px 30px; 
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 3px solid var(--accent); transition: background 0.3s;
+            border-bottom: 3px solid var(--accent); transition: background 0.3s, padding 0.3s;
         }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-img { height: 45px; width: auto; object-fit: contain; } 
@@ -145,24 +146,19 @@
         .portal-icon { width: 40px; height: 40px; object-fit: contain; margin-bottom: 10px; border-radius: 50%; }
         .portal-name { font-size: 0.85rem; font-weight: 600; }
 
-        /* --- FAQ REVISI (FIXED) --- */
+        /* FAQ */
         .faq-item { background: var(--card-bg); margin-bottom: 15px; border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; cursor: pointer; border: 1px solid var(--border-color); }
         .faq-q { padding: 20px; font-weight: bold; color: var(--primary); display: flex; justify-content: space-between; align-items: center; }
         .faq-a { 
-            display: none; /* Sembunyikan total */
-            padding: 20px; 
-            background: rgba(0,0,0,0.02); 
-            color: var(--text); 
-            line-height: 1.6; 
-            border-top: 1px solid var(--border-color);
+            display: none; padding: 20px; background: rgba(0,0,0,0.02); color: var(--text); line-height: 1.6; border-top: 1px solid var(--border-color);
             animation: slideDown 0.3s ease-out; 
         }
-        .faq-item.active .faq-a { display: block; } /* Munculkan saat active */
+        .faq-item.active .faq-a { display: block; } 
         .faq-item.active .faq-q { background: var(--primary); color: white; }
         .faq-item.active .faq-q i { transform: rotate(180deg); }
         @keyframes slideDown { from{opacity:0; transform:translateY(-10px)} to{opacity:1; transform:translateY(0)} }
 
-        /* --- TOAST NOTIFICATION (BARU) --- */
+        /* NOTIFICATION */
         #toast {
             visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 16px;
             position: fixed; z-index: 9999; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 15px;
@@ -184,7 +180,6 @@
         .float-notif { position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 26px; z-index: 2000; box-shadow: 0 5px 20px rgba(0,0,0,0.3); cursor: pointer; transition: 0.3s; }
         .float-notif:hover { transform: scale(1.1); background: var(--accent); border-color: var(--primary); }
         
-        /* TOMBOL DONASI (BARU) */
         .float-donate {
             position: fixed; bottom: 100px; left: 30px; width: 50px; height: 50px; 
             background: #e91e63; color: white; border-radius: 50%; border: 2px solid white;
@@ -272,20 +267,75 @@
         .profil-box { background: var(--card-bg); color: var(--text); padding: 40px; border-radius: 20px; box-shadow: var(--shadow); margin-bottom: 30px; border-bottom: 4px solid var(--accent); }
         .no-data { text-align: center; padding: 40px; color: #999; width: 100%; grid-column: 1 / -1; }
 
+        /* --- RESPONSIVE MOBILE FIXES --- */
         @media(max-width:1024px){ .app-grid { grid-template-columns: repeat(3, 1fr); } .stats-container { grid-template-columns: repeat(3, 1fr); } }
         @media(max-width:900px){ .footer-grid { grid-template-columns: 1fr 1fr; } .app-grid { grid-template-columns: repeat(2, 1fr); } }
+        
         @media(max-width:768px){
+            /* Navbar Stick Top Fix & SCROLL MENU */
+            header { top: 0; margin-bottom: 0; padding: 0; }
+            .navbar { 
+                border-radius: 0; padding: 10px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+                display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+            }
+            .logo-area { width: 100%; justify-content: center; } /* Logo Tengah */
+            
+            .hamburger { display: none !important; } /* Hapus tombol burger */
+            
+            /* MENU SCROLL SAMPING */
+            .nav-menu { 
+                display: flex !important; /* Selalu tampil */
+                position: relative; top: auto; left: auto; 
+                flex-direction: row; width: 100%; 
+                background: transparent; box-shadow: none; border: none; padding: 0; 
+                overflow-x: auto; /* Bisa discroll */
+                white-space: nowrap; /* Teks tidak turun */
+                gap: 10px; padding-bottom: 5px; /* Spasi bawah scroll */
+            }
+            .nav-menu::-webkit-scrollbar { display: none; } /* Hilangkan scrollbar jelek */
+            .nav-link { 
+                font-size: 0.8rem; padding: 6px 15px; 
+                background: rgba(0,0,0,0.05); /* Warna background tipis */
+                flex-shrink: 0; /* Supaya tidak mengecil */
+            }
+            body.dark-mode .nav-link { background: rgba(255,255,255,0.05); }
+
+            /* Tampilan Konten */
             .top-bar { display: none; }
-            .nav-menu { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: var(--card-bg); flex-direction: column; padding: 20px; box-shadow: var(--shadow); border-radius: 0 0 20px 20px; }
-            .nav-menu.active { display: flex; }
-            .hamburger { display: block; }
-            .hero { height: auto; min-height: 500px; }
-            .hero-title-text { font-size: 2rem; }
-            .hero-btns { flex-direction: column; gap: 10px; width: 100%; }
-            .btn-hero-primary, .btn-hero-outline { width: 100%; justify-content: center; }
-            .footer-grid { grid-template-columns: 1fr; text-align: center; } 
-            .map-frame { height: 250px; }
-            .app-grid, .testi-grid, .stats-container, .portal-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero { height: auto; min-height: auto; padding-top: 40px; padding-bottom: 40px; border-radius: 0 0 40px 40px; margin-top: 0; }
+            .hero-title-text { font-size: 1.8rem; line-height: 1.3; margin-bottom: 10px; }
+            .hero-content p { font-size: 0.95rem; margin-bottom: 20px; padding: 0 15px; }
+            
+            .hero-btns { flex-direction: column; gap: 10px; width: 100%; padding: 0 20px; }
+            .btn-hero-primary, .btn-hero-outline { width: 100%; justify-content: center; font-size: 0.9rem; padding: 12px 20px; }
+            
+            /* Footer Rapi */
+            .footer-grid { display: flex; flex-direction: column; gap: 30px; text-align: center; } 
+            .footer-col { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 30px; }
+            .footer-col:last-child { border: none; }
+            .map-frame { height: 200px; width: 100%; }
+            
+            /* Grid Lain */
+            .stats-container { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 15px; }
+            .stat-num { font-size: 1.5rem; }
+            .stat-icon { font-size: 1.4rem; }
+            .app-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .app-card { padding: 15px 10px; }
+            .app-icon { width: 50px; height: 50px; margin-bottom: 10px; }
+            .app-name { font-size: 0.85rem; }
+            .app-cat { font-size: 0.65rem; }
+
+            .portal-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .testi-grid { grid-template-columns: 1fr; }
+            
+            .title h2 { font-size: 1.6rem; }
+            .container { padding: 0 15px; }
+            
+            /* Float Button */
+            .float-wa, .float-notif { width: 50px; height: 50px; font-size: 24px; bottom: 20px; }
+            .float-donate { width: 40px; height: 40px; font-size: 16px; bottom: 80px; left: 20px; }
+            .float-wa { right: 20px; }
+            .float-notif { left: 20px; }
         }
     </style>
 </head>
