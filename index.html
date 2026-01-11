@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MAPPAGURU ONLINE | Website Resmi</title>
+    
+    <meta name="theme-color" content="#002B5B">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIk1hcHBhZ3VydSBPbmxpbmUiLAogICJzaG9ydF9uYW1lIjogIk1hcHBhZ3VydSIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAidGhlbWVfY29xvciI6ICIjMDAyQjVCIgp9">
+    
+    <link rel="icon" href="https://drive.google.com/uc?export=view&id=1Wr_uC9C32tjzN19PZXLsk3tyBNrzO1wy">
+    <meta property="og:title" content="MAPPAGURU ONLINE">
+    <meta property="og:description" content="Website Resmi Bimbingan Konseling & Aplikasi Pendidikan SMPN 16 Makassar">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Warna Default */
+            --primary: #002B5B; 
+            --primary-dark: #00152e;
+            --accent: #C5A059;
+            --menu-active: #D32F2F; 
+            --bg-body: #F5F7FA;
+            --white: #ffffff;
+            --text: #333;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 43, 91, 0.1);
+            --border-color: #eee;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            --primary: #8ab6d6; 
+            --primary-dark: #000a12;
+            --accent: #e0b456;
+            --bg-body: #121212;
+            --white: #1e1e1e;
+            --text: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --border-color: #333;
+        }
+        body.dark-mode .hero { filter: brightness(0.8); }
+        body.dark-mode .app-cat { background: #333; color: var(--accent); }
+        body.dark-mode .btn-card { background: #333; color: var(--accent); }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body { 
+            background: var(--bg-body); font-family: 'Poppins', sans-serif; color: var(--text); 
+            overflow-x: hidden; display: flex; flex-direction: column; min-height: 100vh; scroll-behavior: smooth;
+            transition: background 0.3s, color 0.3s;
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--primary); transition: color 0.3s; }
+        button { cursor: pointer; }
+        img { display: block; max-width: 100%; }
+
+        /* LOADER */
+        #loader {
+            position: fixed; inset: 0; 
+            background: radial-gradient(circle at center, #003366 0%, #000f24 100%);
+            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .loader-logo { width: 120px; animation: pulseLogo 2s infinite; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.6)); }
+        .loader-text { color: var(--accent); font-size: 1.2rem; letter-spacing: 3px; font-weight: 300; margin-bottom: 15px; border-right: 2px solid var(--accent); padding-right: 5px; animation: blinkCursor 0.75s infinite; }
+        .loader-bar-bg { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+        .loader-bar-fill { height: 100%; width: 0%; background: var(--accent); animation: loadProgress 3s ease-out forwards; }
+        @keyframes pulseLogo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes blinkCursor { from, to { border-color: transparent } 50% { border-color: var(--accent) } }
+        @keyframes loadProgress { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* NAVIGASI */
+        .top-bar { background: var(--primary-dark); color: #e0e0e0; font-size: 0.85rem; padding: 8px 0; position: relative; z-index: 101; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+        .top-flex { display: flex; justify-content: space-between; align-items: center; }
+        
+        header { position: sticky; top: 15px; z-index: 1000; padding: 0 20px; margin-bottom: 30px; }
+        .navbar {
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            max-width: 1280px; margin: 0 auto; border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); padding: 10px 30px; 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 3px solid var(--accent); transition: background 0.3s;
+        }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 45px; width: auto; object-fit: contain; } 
+        .brand { font-size: 1.4rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .nav-menu { display: flex; gap: 5px; list-style: none; align-items: center; }
+        .nav-link { padding: 8px 18px; border-radius: 25px; font-weight: 500; font-size: 0.9rem; color: var(--primary); cursor: pointer; transition: 0.3s; }
+        .nav-link:hover { background: var(--border-color); }
+        .nav-link.active { background: var(--menu-active) !important; color: white !important; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4); }
+        .theme-toggle { cursor: pointer; font-size: 1.2rem; color: var(--primary); padding: 8px 12px; border-radius: 50%; transition: 0.3s; margin-left: 10px; border: 1px solid var(--border-color); }
+        .hamburger { display: none; font-size: 1.5rem; color: var(--primary); cursor: pointer; }
+
+        /* HERO & STATS */
+        .hero {
+            background: linear-gradient(to right, rgba(0, 43, 91, 0.95), rgba(0, 21, 46, 0.9)), url('https://source.unsplash.com/1600x900/?education,technology');
+            background-size: cover; background-position: center; min-height: 550px; margin-top: -95px; padding-top: 110px; padding-bottom: 60px;
+            display: flex; flex-direction: column; align-items: center; text-align: center; color: white;
+            border-radius: 0 0 60px 60px; box-shadow: var(--shadow); position: relative;
+        }
+        .hero-title-text {
+            font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; margin-bottom: 5px;
+            background: linear-gradient(to right, #C5A059, #ffffff, #C5A059); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-size: 200% auto; animation: shine 5s linear infinite; text-shadow: 0 5px 15px rgba(0,0,0,0.3); line-height: 1.2;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+        .hero-content p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 25px; letter-spacing: 1px; max-width: 800px; margin-left: auto; margin-right: auto; min-height: 27px; }
+        .cursor { border-right: 2px solid var(--accent); animation: blink 0.75s step-end infinite; }
+        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--accent) } }
+        
+        .hero-btns { display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; }
+        .btn-hero-primary { background: var(--accent); color: var(--primary-dark); padding: 14px 35px; border-radius: 50px; font-weight: 700; border: none; box-shadow: 0 5px 20px rgba(197, 160, 89, 0.4); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+        .btn-hero-primary:hover { background: #fff; transform: translateY(-3px); }
+        .btn-hero-outline { background: transparent; color: white; padding: 14px 35px; border-radius: 50px; font-weight: 600; border: 2px solid rgba(255,255,255,0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+        .btn-hero-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+        .stats-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; width: 100%; max-width: 1000px; margin-top: 20px; }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; padding: 15px;
+            text-align: center; transition: 0.3s; color: white; position: relative; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .stat-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.2); border-color: var(--accent); }
+        .stat-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:4px; background:var(--accent); }
+        .stat-icon { font-size: 1.8rem; margin-bottom: 5px; color: var(--accent); }
+        .stat-num { font-size: 1.8rem; font-weight: 700; font-family: 'Playfair Display'; }
+        .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+
+        /* KONTEN (SLIDER, PORTAL) */
+        .yt-slider-wrapper { overflow-x: auto; padding: 20px 0; scroll-behavior: smooth; }
+        .yt-slider { display: flex; gap: 20px; width: max-content; padding: 0 5px; }
+        .yt-card { width: 320px; background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); border-bottom: 4px solid var(--accent); flex-shrink: 0; transition: 0.3s; }
+        .yt-card:hover { transform: translateY(-5px); }
+        .yt-frame { width: 100%; height: 180px; border: none; }
+        .yt-title { padding: 15px; font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--primary); }
+
+        .portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .portal-btn { background: var(--card-bg); padding: 15px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: var(--shadow); border: 1px solid var(--border-color); transition: 0.3s; text-decoration: none; color: var(--text); }
+        .portal-btn:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .portal-icon { width: 40px; height: 40px; object-fit: contain; margin-bottom: 10px; border-radius: 50%; }
+        .portal-name { font-size: 0.85rem; font-weight: 600; }
+
+        /* --- FAQ REVISI (FIXED) --- */
+        .faq-item { background: var(--card-bg); margin-bottom: 15px; border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; cursor: pointer; border: 1px solid var(--border-color); }
+        .faq-q { padding: 20px; font-weight: bold; color: var(--primary); display: flex; justify-content: space-between; align-items: center; }
+        .faq-a { 
+            display: none; /* Sembunyikan total */
+            padding: 20px; 
+            background: rgba(0,0,0,0.02); 
+            color: var(--text); 
+            line-height: 1.6; 
+            border-top: 1px solid var(--border-color);
+            animation: slideDown 0.3s ease-out; 
+        }
+        .faq-item.active .faq-a { display: block; } /* Munculkan saat active */
+        .faq-item.active .faq-q { background: var(--primary); color: white; }
+        .faq-item.active .faq-q i { transform: rotate(180deg); }
+        @keyframes slideDown { from{opacity:0; transform:translateY(-10px)} to{opacity:1; transform:translateY(0)} }
+
+        /* --- TOAST NOTIFICATION (BARU) --- */
+        #toast {
+            visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 50px; padding: 16px;
+            position: fixed; z-index: 9999; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.5s, bottom 0.5s;
+        }
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+
+        /* SCROLL WRAPPER */
+        .scroll-wrapper { max-height: 600px; overflow-y: auto; padding: 5px 15px; scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--primary), var(--accent)); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        .table-res { max-height: 500px; overflow-y: auto; box-shadow: var(--shadow); }
+        th { position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        /* FLOATING BUTTONS */
+        .float-wa { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 2000; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .float-notif { position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 26px; z-index: 2000; box-shadow: 0 5px 20px rgba(0,0,0,0.3); cursor: pointer; transition: 0.3s; }
+        .float-notif:hover { transform: scale(1.1); background: var(--accent); border-color: var(--primary); }
+        
+        /* TOMBOL DONASI (BARU) */
+        .float-donate {
+            position: fixed; bottom: 100px; left: 30px; width: 50px; height: 50px; 
+            background: #e91e63; color: white; border-radius: 50%; border: 2px solid white;
+            display: flex; align-items: center; justify-content: center; font-size: 20px; 
+            z-index: 2000; box-shadow: 0 5px 20px rgba(0,0,0,0.3); cursor: pointer; transition: 0.3s;
+        }
+        .float-donate:hover { transform: scale(1.1) rotate(15deg); }
+
+        .btn-top { position: fixed; bottom: 100px; right: 30px; width: 50px; height: 50px; background: var(--primary); color: white; border: 2px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; z-index: 1999; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s; opacity: 0; visibility: hidden; }
+        .btn-top.show { opacity: 1; visibility: visible; }
+        .btn-top:hover { background: var(--accent); transform: translateY(-5px); }
+        .badge { position: absolute; top: -5px; right: -5px; background: red; color: white; font-size: 12px; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; }
+
+        /* GENERAL STYLES */
+        .news-ticker-container { max-width: 1280px; margin: -25px auto 40px; padding: 0 20px; position: relative; z-index: 10; }
+        .news-ticker { background: var(--card-bg); border-radius: 50px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); display: flex; overflow: hidden; align-items: center; border: 1px solid var(--border-color); }
+        .ticker-label { background: var(--primary); color: white; padding: 10px 25px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; white-space: nowrap; z-index: 2; }
+        .ticker-wrap { width: 100%; overflow: hidden; padding: 10px 0; white-space: nowrap; }
+        .ticker-move { display: inline-block; white-space: nowrap; padding-left: 100%; animation: marquee 25s linear infinite; font-size: 0.9rem; color: var(--text); }
+        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        .search-container { max-width: 600px; margin: 0 auto 30px auto; position: relative; }
+        .search-input { width: 100%; padding: 15px 50px 15px 25px; border-radius: 50px; border: 2px solid var(--border-color); background: var(--card-bg); color: var(--text); font-size: 1rem; transition: 0.3s; box-shadow: var(--shadow); }
+        .search-input:focus { border-color: var(--accent); }
+        .search-icon { position: absolute; right: 25px; top: 50%; transform: translateY(-50%); color: var(--accent); font-size: 1.2rem; }
+
+        .section { display: none; padding: 60px 0; animation: fadeIn 0.6s ease; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        
+        .title { text-align: center; margin-bottom: 30px; position: relative; }
+        .title h2 { font-size: 2.2rem; margin-bottom: 10px; }
+        .title::after { content:''; display:block; width:70px; height: 4px; background:var(--accent); margin:10px auto; border-radius:2px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: var(--card-bg); border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); border-top: 5px solid var(--primary); display: flex; flex-direction: column; transition: 0.3s; }
+        .card:hover { transform: translateY(-8px); border-top-color: var(--accent); }
+        .card img { width: 100%; height: 200px; object-fit: cover; background: #eee; }
+        .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; color: var(--text); }
+        .btn-card { align-self: flex-start; padding: 8px 25px; border-radius: 20px; background: var(--border-color); color: var(--text); font-weight: 600; border: none; margin-top: 10px; }
+
+        .app-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .app-card { background: var(--card-bg); color: var(--text); padding: 25px 15px; border-radius: 20px; text-align: center; cursor: pointer; box-shadow: var(--shadow); border: 1px solid var(--border-color); transition: 0.3s; display: flex; flex-direction: column; align-items: center; height: 100%; }
+        .app-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .app-icon { width: 70px; height: 70px; object-fit: contain; margin-bottom: 15px; border-radius: 15px; }
+        .app-name { font-size: 1rem; font-weight: 700; margin-bottom: 5px; color: var(--primary); line-height: 1.3; }
+        .app-cat { font-size: 0.75rem; background: #eef2ff; color: var(--primary-dark); padding: 3px 10px; border-radius: 10px; font-weight: 600; }
+
+        .testi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .testi-card { background: var(--card-bg); color: var(--text); padding: 15px; border-radius: 10px; border-left: 4px solid var(--accent); box-shadow: var(--shadow); height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+        .testi-card p { font-size: 0.8rem !important; margin-bottom: 10px !important; line-height: 1.4; }
+        .testi-card div { font-size: 0.85rem !important; }
+
+        .announce-item { border-left: 4px solid var(--accent); background: var(--card-bg); color:var(--text); padding: 15px; margin-bottom: 15px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .announce-date { font-size: 0.75rem; color: #888; margin-bottom: 5px; display:flex; align-items:center; gap:5px; }
+        .announce-title { font-weight: bold; color: var(--primary); margin-bottom: 5px; font-size: 1.1rem; }
+        
+        .share-btn { background: none; border: none; color: #25d366; font-size: 1.2rem; margin-left: 10px; cursor: pointer; transition: 0.3s; padding: 5px; }
+        .share-btn:hover { transform: scale(1.2); }
+
+        .inp { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-body); color: var(--text); font-family: inherit; }
+        .btn-submit { width: 100%; background: var(--accent); color: var(--primary); padding: 12px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
+
+        footer { background: var(--primary-dark); color: #b0c4de; padding-top: 60px; margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 30px; max-width: 1280px; margin: 0 auto; padding-bottom: 40px; }
+        .footer-col h3 { color: white; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px; }
+        .copy { text-align: center; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; background: #000f24; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;}
+        .map-frame { width: 100%; height: 200px; border: 0; border-radius: 10px; filter: grayscale(20%) contrast(1.2); transition:0.3s; }
+        .map-frame:hover { filter: grayscale(0); }
+        .social-icons a { display: inline-flex; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; justify-content: center; align-items: center; margin-right: 10px; color: white; transition: 0.3s; }
+
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 6000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
+        .modal.show { display: flex; }
+        .modal-content { background: var(--card-bg); color: var(--text); width: 100%; max-width: 600px; border-radius: 20px; overflow: hidden; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.4s; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: #999; }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .motiv-box { background: var(--card-bg); padding: 40px; border-radius: 15px; text-align: center; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 40px rgba(197, 160, 89, 0.4); max-width: 500px; border-top: 5px solid var(--accent); }
+        .app-popup-icon { width: 100px; height: 100px; object-fit: contain; border-radius: 20px; margin-bottom: 15px; box-shadow: var(--shadow); }
+        .app-popup-desc { background: var(--bg-body); padding: 20px; border-radius: 10px; text-align: justify; color: var(--text); line-height: 1.6; margin: 20px 0; border-left: 4px solid var(--accent); }
+        .table-res { overflow-x: auto; background: var(--card-bg); border-radius: 15px; box-shadow: var(--shadow); }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; color: var(--text); }
+        th { background: var(--primary); color: white; padding: 15px; text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid var(--border-color); }
+        .profil-box { background: var(--card-bg); color: var(--text); padding: 40px; border-radius: 20px; box-shadow: var(--shadow); margin-bottom: 30px; border-bottom: 4px solid var(--accent); }
+        .no-data { text-align: center; padding: 40px; color: #999; width: 100%; grid-column: 1 / -1; }
+
+        @media(max-width:1024px){ .app-grid { grid-template-columns: repeat(3, 1fr); } .stats-container { grid-template-columns: repeat(3, 1fr); } }
+        @media(max-width:900px){ .footer-grid { grid-template-columns: 1fr 1fr; } .app-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width:768px){
+            .top-bar { display: none; }
+            .nav-menu { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: var(--card-bg); flex-direction: column; padding: 20px; box-shadow: var(--shadow); border-radius: 0 0 20px 20px; }
+            .nav-menu.active { display: flex; }
+            .hamburger { display: block; }
+            .hero { height: auto; min-height: 500px; }
+            .hero-title-text { font-size: 2rem; }
+            .hero-btns { flex-direction: column; gap: 10px; width: 100%; }
+            .btn-hero-primary, .btn-hero-outline { width: 100%; justify-content: center; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; } 
+            .map-frame { height: 250px; }
+            .app-grid, .testi-grid, .stats-container, .portal-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <img src="" id="loadLogo" class="loader-logo" alt="Logo">
+        <div class="loader-text">Tunggu Yah :)</div>
+        <div class="loader-bar-bg"><div class="loader-bar-fill"></div></div>
+    </div>
+
+    <div id="toast">Notifikasi</div>
+
+    <div id="motivModal" class="modal">
+        <div class="motiv-box">
+            <i class="fas fa-quote-left" style="font-size:3rem; color:var(--accent); opacity:0.3;"></i>
+            <div id="motivText" style="font-family:'Playfair Display'; font-size:1.3rem; margin:20px 0; font-style:italic; color:var(--primary);">Loading...</div>
+            <div id="motivAuthor" style="font-weight:bold; letter-spacing:1px; color:#888;">- MAPPAGURU -</div>
+            <button onclick="document.getElementById('motivModal').style.display='none'" class="btn-hero-primary" style="margin-top:25px; box-shadow:none;">LANJUT MASUK</button>
+        </div>
+    </div>
+
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('donateModal')">×</button>
+            <div style="text-align:center; padding:20px;">
+                <i class="fas fa-heart" style="font-size:3rem; color:#e91e63; margin-bottom:15px; animation: pulseLogo 1s infinite;"></i>
+                <h3 style="color:var(--primary); margin-bottom:10px;">Dukungan Anda Berarti</h3>
+                <p style="margin-bottom:20px; line-height:1.6;">Website ini dikembangkan secara mandiri. Jika Anda merasa terbantu, Anda bisa memberikan dukungan seikhlasnya untuk biaya server dan pengembangan.</p>
+                <div style="background:var(--bg-body); padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid var(--border-color);">
+                    <div style="font-weight:bold; color:var(--primary); margin-bottom:5px;">Donasi bisa ke :</div>
+                    <div style="font-weight:bold; color:var(--accent); margin-bottom:5px;">DANA atau GOPAY</div>
+                    <div style="font-size:1.2rem; font-weight:bold; margin:5px 0; color:var(--text);">085259259767</div>
+                    <div style="font-size:0.9rem;">(Muh. Hasratul)</div>
+                </div>
+                <button onclick="copyNumber()" style="background:#e91e63; color:white; border:none; padding:10px 25px; border-radius:30px; font-weight:bold; cursor:pointer;"><i class="far fa-copy"></i> Salin Nomor</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="appModal" class="modal">
+        <div class="modal-content" style="max-width: 500px; padding: 30px; text-align: center;">
+            <button class="close-btn" onclick="closeModal('appModal')">×</button>
+            <img id="apIcon" src="" class="app-popup-icon">
+            <h2 id="apTitle" style="color:var(--primary); margin-bottom:5px;">Nama</h2>
+            <div id="apCat" style="color:var(--accent); font-weight:bold; margin-bottom:20px;">Kategori</div>
+            <div id="apDesc" class="app-popup-desc">Deskripsi</div>
+            <a id="apLink" href="#" target="_blank" style="text-decoration:none;"><button class="btn-submit">Buka Aplikasi</button></a>
+        </div>
+    </div>
+
+    <div id="testiFormModal" class="modal">
+        <div class="modal-content" style="max-width: 500px; padding: 30px;">
+            <button class="close-btn" onclick="closeModal('testiFormModal')">×</button>
+            <h3 style="text-align:center; color:var(--primary); margin-bottom:20px;">Tulis Ulasan Anda</h3>
+            <form onsubmit="kirimTestimoni(event)">
+                <input type="text" id="tNama" class="inp" placeholder="Nama Lengkap" required>
+                <input type="text" id="tStatus" class="inp" placeholder="Status (Misal: Siswa)" required>
+                <input type="text" id="tKota" class="inp" placeholder="Kota Asal (Misal: Makassar)" required>
+                <select id="tRating" class="inp">
+                    <option value="5">⭐⭐⭐⭐⭐ Sangat Puas</option>
+                    <option value="4">⭐⭐⭐⭐ Puas</option>
+                    <option value="3">⭐⭐⭐ Cukup</option>
+                </select>
+                <textarea id="tPesan" class="inp" rows="4" placeholder="Pengalaman Anda..." required></textarea>
+                <button type="submit" class="btn-submit" id="btnKirim">Kirim Testimoni</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="newsModal" class="modal">
+        <div class="modal-content" style="padding:0;">
+            <button class="close-btn" onclick="closeModal('newsModal')" style="color:white; text-shadow:0 0 5px black; top:10px; right:15px; z-index:10;">×</button>
+            <img id="mImg" src="" style="width:100%; height:300px; object-fit:cover;">
+            <div style="padding:30px;">
+                <h2 id="mTitle" style="color:var(--primary); margin-bottom:10px;"></h2>
+                <div id="mDate" style="color:#777; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;"></div>
+                <div id="mDesc" style="line-height:1.8; color:var(--text);"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="announceModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('announceModal')">×</button>
+            <h3 style="text-align:center; margin-bottom:20px; border-bottom:2px solid var(--accent); padding-bottom:10px;">Papan Pengumuman</h3>
+            <div id="announceList">
+                <p style="text-align:center; color:#999;">Tidak ada pengumuman aktif saat ini.</p>
+            </div>
+        </div>
+    </div>
+
+    <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="btn-top" id="btnTop"><i class="fas fa-arrow-up"></i></button>
+    <div class="float-donate" onclick="openModal('donateModal')" title="Dukungan"><i class="fas fa-heart"></i></div>
+    <a href="https://wa.me/6285111032103" class="float-wa" title="Hubungi WA"><i class="fab fa-whatsapp"></i></a>
+    <div class="float-notif" onclick="openModal('announceModal')" title="Pengumuman">
+        <i class="fas fa-bell"></i>
+        <div class="badge" id="badgeCount">0</div>
+    </div>
+
+    <div class="top-bar">
+        <div class="container top-flex">
+            <div class="top-info">
+                <span><i class="fas fa-calendar-alt"></i> <span id="curDate"></span></span>
+                <span><i class="fas fa-envelope"></i> mappaguruonline01@gmail.com</span>
+            </div>
+            <div class="top-info"><span><i class="fas fa-phone"></i> 0851-1103-2103</span></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="navbar">
+            <div class="logo-area">
+                <img src="" id="navLogo" class="logo-img">
+                <div class="brand">MAPPA<span style="color:var(--accent)">GURU</span></div>
+            </div>
+            <div class="hamburger" onclick="document.getElementById('menu').classList.toggle('active')"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu" id="menu">
+                <li><a onclick="nav(event, 'beranda')" class="nav-link active">Beranda</a></li>
+                <li><a onclick="nav(event, 'profil')" class="nav-link">Profil</a></li>
+                <li><a onclick="nav(event, 'berita')" class="nav-link">Berita</a></li>
+                <li><a onclick="nav(event, 'aplikasi')" class="nav-link">Aplikasi</a></li>
+                <li><a onclick="nav(event, 'dokumentasi')" class="nav-link">Dokumen</a></li>
+                <li><a onclick="nav(event, 'media')" class="nav-link">Materi</a></li>
+                <li><a onclick="nav(event, 'testimoni')" class="nav-link">Testimoni</a></li>
+                <li><a onclick="nav(event, 'faq')" class="nav-link">FAQ</a></li>
+                <li class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></li>
+            </ul>
+        </div>
+    </header>
+
+    <div id="beranda" class="section active" style="padding-top:0;">
+        <div class="hero">
+            <div class="container hero-content" style="display:flex; flex-direction:column; align-items:center; width:100%;">
+                <h1 class="hero-title-text">MAPPAGURU ONLINE</h1>
+                <p id="typewriter" style="font-weight:600; color:var(--accent); font-size:1.3rem;">Membangun Pendidikan Digital...</p>
+                <div class="hero-btns">
+                    <button onclick="nav(event, 'aplikasi')" class="btn-hero-primary">Akses Aplikasi <i class="fas fa-rocket"></i></button>
+                    <button onclick="location.reload()" class="btn-hero-outline">Refresh Data <i class="fas fa-sync-alt"></i></button>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+                        <div class="stat-num" id="statBerita">0</div>
+                        <div class="stat-label">Berita</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="stat-num" id="statApp">0</div>
+                        <div class="stat-label">Aplikasi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-folder-open"></i></div>
+                        <div class="stat-num" id="statDoc">0</div>
+                        <div class="stat-label">Dokumen</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-book-reader"></i></div>
+                        <div class="stat-num" id="statMedia">0</div>
+                        <div class="stat-label">Materi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-comments"></i></div>
+                        <div class="stat-num" id="statTesti">0</div>
+                        <div class="stat-label">Ulasan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="news-ticker-container">
+            <div class="news-ticker">
+                <div class="ticker-label">INFO TERBARU</div>
+                <div class="ticker-wrap">
+                    <div class="ticker-move" id="tickerText">Selamat Datang di Mappaguru Online...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="margin-bottom:50px;">
+            <div class="title"><h2>Galeri Video</h2></div>
+            <div class="yt-slider-wrapper">
+                <div class="yt-slider" id="ytContainer">
+                    <p style="text-align:center; width:100%; color:#999;">Memuat video...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="margin-bottom:50px;">
+            <div class="title"><h2>Akses Cepat</h2></div>
+            <div class="portal-grid" id="portalContainer"></div>
+        </div>
+
+        <div class="container">
+            <div class="title"><h2>Berita Terkini</h2></div>
+            <div class="grid" id="homeNews"></div>
+        </div>
+    </div>
+
+    <div id="profil" class="section"><div class="container"><div class="title"><h2>Profil Kami</h2></div><div id="profSambutan"></div><div id="profDev"></div><div id="profLogo"></div></div></div>
+    
+    <div id="berita" class="section">
+        <div class="container">
+            <div class="title"><h2>Pusat Berita</h2></div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cari Berita..." onkeyup="cariData(this.value, 'newsGrid', '.card')">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="scroll-wrapper">
+                <div class="grid" id="newsGrid"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="aplikasi" class="section">
+        <div class="container">
+            <div class="title"><h2>Aplikasi Digital</h2></div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cari Aplikasi (Nama atau Kategori)..." onkeyup="cariData(this.value, 'appGrid', '.app-card')">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="scroll-wrapper">
+                <div class="app-grid" id="appGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dokumentasi" class="section">
+        <div class="container">
+            <div class="title"><h2>Arsip Dokumen</h2></div>
+             <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cari Dokumen..." onkeyup="cariTabel(this.value, 'docBody')">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="table-res"><table><thead><tr><th>Nama</th><th>Tipe</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody id="docBody"></tbody></table></div>
+        </div>
+    </div>
+
+    <div id="media" class="section">
+        <div class="container">
+            <div class="title"><h2>Unduhan Materi</h2></div>
+             <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cari Materi (Mapel/Topik)..." onkeyup="cariTabel(this.value, 'mediaBody')">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="table-res"><table><thead><tr><th>Mapel</th><th>Topik</th><th>Kelas</th><th>Aksi</th></tr></thead><tbody id="mediaBody"></tbody></table></div>
+        </div>
+    </div>
+    
+    <div id="testimoni" class="section">
+        <div class="container">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:40px;">
+                <h2 style="font-family:'Playfair Display'; color:var(--primary); margin:0;">Kata Mereka</h2>
+                <button onclick="openModal('testiFormModal')" class="btn-hero-primary" style="padding:10px 25px; font-size:0.9rem;">Tulis Ulasan</button>
+            </div>
+            <div class="scroll-wrapper">
+                <div class="testi-grid" id="testiGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="faq" class="section">
+        <div class="container" style="max-width:800px;">
+            <div class="title"><h2>FAQ (Tanya Jawab)</h2></div>
+            <div id="faqBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h3>TENTANG</h3>
+                <p>Membangun generasi cerdas berkarakter melalui pemanfaatan teknologi pendidikan yang tepat guna.</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/share/16ngzdxXeQ/"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/yayan_0321?igsh=NXVwdGs1dWdnaDVo"><i class="fab fa-instagram"></i></a>
+                    <a href="http://mappaguruonline.my.id/"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>KONTAK</h3>
+                <p><i class="fas fa-map-marker-alt" style="color:var(--accent)"></i> SMPN 16 Makassar</p>
+                <p><i class="fas fa-envelope" style="color:var(--accent)"></i> mappaguruonline01@gmail.com</p>
+                <p><i class="fas fa-phone" style="color:var(--accent)"></i> 0851-1103-2103</p>
+            </div>
+            <div class="footer-col">
+                <h3>MENU</h3>
+                <ul style="line-height:2; list-style:none;">
+                    <li><a onclick="nav(event, 'beranda')" style="cursor:pointer">Beranda</a></li>
+                    <li><a onclick="nav(event, 'aplikasi')" style="cursor:pointer">Aplikasi</a></li>
+                    <li><a onclick="nav(event, 'media')" style="cursor:pointer">Materi</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>LOKASI</h3>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3974.042826941836!2d119.53202237315041!3d-5.0967783516598315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbefb9133058bd1%3A0x8a8af92c50c68858!2sSekolah%20Menengah%20Pertama%20Negeri%2016%20Makassar!5e0!3m2!1sid!2sid!4v1768100208938!5m2!1sid!2sid" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="copy">
+            <span>© 2026 MAPPAGURU ONLINE - Muhammad Hasratul</span>
+            <span style="color:var(--accent); border-left:1px solid #555; padding-left:20px;">
+                <i class="fas fa-chart-line"></i> Total Pengunjung: <span id="visitorCount">...</span>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        // GANTI DENGAN LINK WEB APP BACKEND ANDA
+        const API = 'https://script.google.com/macros/s/AKfycbyuR_NpM7NQ2iUbok7nhUGZbumtl6kjlH9aa9smLCYfgEwyETcfh_vWZay0IZqAingY/exec'; 
+        const LOGO_ID = '1Wr_uC9C32tjzN19PZXLsk3tyBNrzO1wy'; 
+
+        let gBerita=[], gMotiv=[], gApps=[];
+
+        // --- BACK TO TOP SCROLL ---
+        window.onscroll = function() {
+            const btn = document.getElementById('btnTop');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.classList.add('show');
+            } else {
+                btn.classList.remove('show');
+            }
+        };
+
+        // --- TOAST & DONATION ---
+        function showToast(message) {
+            const x = document.getElementById("toast");
+            x.innerText = message;
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+        function copyNumber() {
+            navigator.clipboard.writeText("085259259767");
+            showToast("Nomor DANA/GOPAY berhasil disalin!");
+        }
+
+        // --- DARK MODE LOGIC ---
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('themeIcon');
+            if(document.body.classList.contains('dark-mode')){
+                icon.classList.remove('fa-moon'); icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun'); icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        if(localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeIcon').classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // --- SHARE LOGIC ---
+        function share(title, url) {
+            const text = encodeURIComponent(`Cek ini: ${title}\n${url}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        // --- TYPEWRITER & CLOCK ---
+        const typeTexts = ["Pintar Bersama Teknologi", "Maju Bersama Mappaguru", "Solusi Pendidikan Digital", "Muhammad Hasratul"];
+        let typeCount = 0;
+        let typeIndex = 0;
+        let currentText = "";
+        let letter = "";
+
+        function type() {
+            if(typeCount === typeTexts.length) typeCount = 0;
+            currentText = typeTexts[typeCount];
+            letter = currentText.slice(0, ++typeIndex);
+            
+            const el = document.getElementById('typewriter');
+            if(el) {
+                el.innerHTML = letter + '<span class="cursor">|</span>';
+                if(letter.length === currentText.length) {
+                    typeCount++;
+                    typeIndex = 0;
+                    setTimeout(type, 2000); 
+                } else {
+                    setTimeout(type, 100); 
+                }
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const time = now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+            const date = now.toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+            const el = document.getElementById('curDate');
+            if(el) el.innerHTML = `${date} <span style="margin-left:10px; color:var(--accent)">${time} WITA</span>`;
+        }
+
+        window.onload = async () => {
+            setInterval(updateClock, 1000); updateClock(); type();
+            
+            const lUrl = `https://lh3.googleusercontent.com/d/${LOGO_ID}=s200`; 
+            const realLogo = 'https://drive.google.com/uc?export=view&id=' + LOGO_ID;
+            const finalLogo = fix(realLogo);
+            
+            document.getElementById('loadLogo').src = finalLogo;
+            document.getElementById('navLogo').src = finalLogo;
+
+            setTimeout(() => {
+                const ldr = document.getElementById('loader');
+                if(ldr.style.display !== 'none') {
+                    ldr.style.opacity = 0;
+                    setTimeout(() => { ldr.style.display='none'; document.getElementById('motivModal').style.display='flex'; }, 500);
+                }
+            }, 3500);
+
+            if(API.includes('PASTE')) return;
+            
+            try {
+                const req = await fetch(API+'?action=getData');
+                const res = await req.json();
+                
+                gBerita = res.berita || [];
+                gMotiv = res.motivasi || [];
+                gApps = res.aplikasi || [];
+                
+                if(res.visitor) { document.getElementById('visitorCount').innerText = res.visitor.toLocaleString('id-ID'); } 
+                else { document.getElementById('visitorCount').innerText = '-'; }
+                
+                render(res);
+                
+                if(gMotiv.length){
+                    const r = gMotiv[Math.floor(Math.random()*gMotiv.length)];
+                    document.getElementById('tickerText').innerHTML = `Selamat Datang di MAPPAGURU ONLINE <span style="color:var(--accent); margin:0 10px;">★</span> "${r.Kutipan}" - ${r.Tokoh} <span style="color:var(--accent); margin:0 10px;">★</span> Admin: 0851-1103-2103`;
+                    document.getElementById('motivText').innerText = `"${r.Kutipan}"`;
+                    document.getElementById('motivAuthor').innerText = r.Tokoh;
+                }
+            } catch(e) { console.log("Data Load Error"); }
+        }
+
+        function fix(url) {
+            if(!url) return 'https://source.unsplash.com/400x300/?school';
+            const id = url.match(/\/d\/(.+?)\/|id=(.+?)&|id=(.+?)$/);
+            if(id) {
+                const fileId = id[1] || id[2] || id[3];
+                return `https://lh3.googleusercontent.com/d/${fileId}=s500`;
+            }
+            return url;
+        }
+
+        function render(db) {
+            document.getElementById('statBerita').innerText = (db.berita || []).length;
+            document.getElementById('statApp').innerText = (db.aplikasi || []).length;
+            document.getElementById('statDoc').innerText = (db.dokumentasi || []).length;
+            document.getElementById('statMedia').innerText = (db.media || []).length;
+            document.getElementById('statTesti').innerText = (db.testimoni || []).length;
+
+            const p = db.profil || [];
+            const samb = p.find(x=>x.Kategori=='Sambutan');
+            if(samb) document.getElementById('profSambutan').innerHTML = `<div class="profil-box"><div style="display:flex; gap:30px; flex-wrap:wrap; align-items:center;"><img src="${fix(samb.Link_Gambar)}" style="width:250px; border-radius:15px; box-shadow:var(--shadow);"><div style="flex:1;"><h3 style="margin-bottom:15px; color:var(--accent);">${samb.Judul_Bagian}</h3><div style="line-height:1.8; text-align:justify;">${samb.Konten_Teks.replace(/\n/g,'<br>')}</div></div></div></div>`;
+            const dev = p.find(x=>x.Kategori=='Pengembang');
+            if(dev) {
+                let bio=''; if(dev.Data_Tambahan) dev.Data_Tambahan.split('|').forEach(x=>{ const s=x.split(':'); if(s[0]) bio+=`<b>${s[0]}</b>: ${s[1]}<br>`; });
+                document.getElementById('profDev').innerHTML = `<div class="profil-box"><div style="display:flex; gap:30px; flex-wrap:wrap; align-items:center;"><img src="${fix(dev.Link_Gambar)}" style="width:250px; border-radius:15px; box-shadow:var(--shadow);"><div style="flex:1;"><h3 style="color:var(--accent);">${dev.Judul_Bagian}</h3><p style="margin-bottom:15px;">${dev.Konten_Teks}</p><div style="background:#f9f9f9; padding:20px; border-radius:15px; border-left:4px solid var(--primary); color:#333;">${bio}</div></div></div></div>`;
+            }
+            const logo = p.find(x=>x.Kategori=='Logo');
+            if(logo) document.getElementById('profLogo').innerHTML = `<div class="profil-box" style="text-align:center;"><img src="${fix(logo.Link_Gambar)}" style="width:120px; margin:0 auto 20px;"><p style="max-width:700px; margin:0 auto; line-height:1.8;">${logo.Konten_Teks}</p></div>`;
+
+            document.getElementById('homeNews').innerHTML = document.getElementById('newsGrid').innerHTML = (gBerita||[]).map((b,i)=>`
+                <div class="card">
+                    <img src="${fix(b.Link_Gambar)}">
+                    <div class="card-body">
+                        <h3>${b.Judul}</h3>
+                        <div style="color:#888; font-size:0.8rem; margin-bottom:10px;">${b.Tanggal.split('T')[0]}</div>
+                        <div style="display:flex; align-items:center;">
+                            <button onclick="bukaBerita(${i})" class="btn-card">Baca</button>
+                            <button onclick="share('${b.Judul}', location.href)" class="share-btn"><i class="fas fa-share-alt"></i></button>
+                        </div>
+                    </div>
+                </div>`).join('');
+            
+            document.getElementById('appGrid').innerHTML = (db.aplikasi||[]).map((a,i)=>`
+                <div class="app-card" onclick="bukaApp(${i})">
+                    <img src="${fix(a.Link_Icon)}" class="app-icon">
+                    <div class="app-name">${a.Nama_App}</div>
+                    <div class="app-cat">${a.Kategori}</div>
+                </div>`).join('');
+            
+            document.getElementById('docBody').innerHTML = (db.dokumentasi||[]).map(d=>`<tr><td><b>${d.Nama_Dokumen}</b></td><td><span style="background:#eee;padding:4px 10px;border-radius:20px;font-size:0.8rem;color:#333;">${d.Jenis_File}</span></td><td>${d.Tanggal_Upload.split('T')[0]}</td><td><a href="${d.Link_Download}" class="btn-card" style="font-size:0.8rem;"><i class="fas fa-download"></i> Unduh</a></td></tr>`).join('');
+            document.getElementById('mediaBody').innerHTML = (db.media||[]).map(m=>`<tr><td><b>${m.Mata_Pelajaran}</b><br><small>${m.Topik}</small></td><td>Materi</td><td>${m.Kelas}</td><td><a href="${m.Link_Materi}" class="btn-card" style="font-size:0.8rem;"><i class="fas fa-download"></i> Unduh</a></td></tr>`).join('');
+            document.getElementById('testiGrid').innerHTML = (db.testimoni||[]).map(t=>`<div class="testi-card"><div style="color:#f1c40f; margin-bottom:10px;">${"⭐".repeat(t.Rating||5)}</div><p style="font-style:italic; margin-bottom:15px; opacity:0.8;">"${t.Isi_Testimoni}"</p><div style="font-weight:bold; color:var(--primary);">${t.Nama}</div><div style="font-size:0.8rem; opacity:0.7;">${t.Status} <span style="color:var(--accent)">•</span> ${t.Kota || ''}</div></div>`).join('');
+            
+            const faqData = db.faq || [];
+            if(faqData.length > 0) { document.getElementById('faqBody').innerHTML = faqData.map(f=>`<div class="faq-item" onclick="this.classList.toggle('active')"><div class="faq-q">${f.Pertanyaan} <i class="fas fa-chevron-down"></i></div><div class="faq-a">${f.Jawaban}</div></div>`).join(''); } 
+            else { document.getElementById('faqBody').innerHTML = '<p style="text-align:center">Belum ada pertanyaan.</p>'; }
+
+            const ann = db.pengumuman || [];
+            const activeAnn = ann.filter(x => x.Status && x.Status.toLowerCase() === 'aktif');
+            document.getElementById('badgeCount').innerText = activeAnn.length;
+            if(activeAnn.length > 0) {
+                document.getElementById('announceList').innerHTML = activeAnn.map(x => `<div class="announce-item"><div class="announce-date"><i class="far fa-clock"></i> ${x.Tanggal.split('T')[0]}</div><div class="announce-title">${x.Judul}</div><div>${x.Isi}</div></div>`).join('');
+                document.querySelector('.float-notif').classList.add('pulse');
+            }
+
+            const vids = db.video || [];
+            if(vids.length > 0) {
+                document.getElementById('ytContainer').innerHTML = vids.map(v => {
+                    let vidId = ''; if(v.Link_Youtube.includes('v=')) vidId = v.Link_Youtube.split('v=')[1].split('&')[0]; else if(v.Link_Youtube.includes('youtu.be/')) vidId = v.Link_Youtube.split('youtu.be/')[1];
+                    return `<div class="yt-card"><iframe class="yt-frame" src="https://www.youtube.com/embed/${vidId}" allowfullscreen></iframe><div class="yt-title">${v.Judul}</div></div>`;
+                }).join('');
+            } else { document.getElementById('ytContainer').innerHTML = '<p style="text-align:center;width:100%;color:#999">Belum ada video.</p>'; }
+
+            const portal = db.portal || [];
+            if(portal.length > 0) {
+                document.getElementById('portalContainer').innerHTML = portal.map(p => `<a href="${p.Link_Url}" target="_blank" class="portal-btn"><img src="${fix(p.Icon_Url) || 'https://via.placeholder.com/50'}" class="portal-icon"><div class="portal-name">${p.Nama_Web}</div></a>`).join('');
+            } else { document.getElementById('portalContainer').innerHTML = '<p style="text-align:center; width:100%; color:#999;">Belum ada link cepat.</p>'; }
+        }
+
+        function cariData(k, id, cls) {
+            const items = document.getElementById(id).querySelectorAll(cls);
+            let found = false;
+            items.forEach(el => {
+                if(el.innerText.toLowerCase().includes(k.toLowerCase())) { el.style.display = ""; found = true; } else { el.style.display = "none"; }
+            });
+            let msg = document.getElementById(id).parentNode.querySelector('.no-data');
+            if(!found && k !== '') {
+                if(!msg) { 
+                    msg = document.createElement('div'); msg.className = 'no-data'; 
+                    msg.innerHTML = '<i class="fas fa-search" style="font-size:2rem; margin-bottom:10px;"></i><br>Data tidak ditemukan'; 
+                    document.getElementById(id).parentNode.appendChild(msg); 
+                }
+            } else if(msg) { msg.remove(); }
+        }
+        function cariTabel(k, id) {
+            const rows = document.getElementById(id).querySelectorAll('tr');
+            rows.forEach(r => { r.style.display = r.innerText.toLowerCase().includes(k.toLowerCase()) ? '' : 'none'; });
+        }
+
+        function nav(e, id) {
+            if(e) e.preventDefault();
+            document.querySelectorAll('.section').forEach(x => x.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('onclick').includes(id)) link.classList.add('active');
+            });
+            document.getElementById('menu').classList.remove('active');
+            window.scrollTo(0,0);
+        }
+
+        function openModal(id) { document.getElementById(id).classList.add('show'); document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); setTimeout(() => { document.getElementById(id).style.display = 'none'; }, 300); }
+
+        function bukaApp(i) {
+            const a = gApps[i];
+            document.getElementById('apIcon').src = fix(a.Link_Icon);
+            document.getElementById('apTitle').innerText = a.Nama_App;
+            document.getElementById('apCat').innerText = a.Kategori;
+            document.getElementById('apDesc').innerText = a.Deskripsi;
+            document.getElementById('apLink').href = a.Link_Akses;
+            openModal('appModal');
+        }
+
+        function bukaBerita(i) {
+            const b = gBerita[i];
+            document.getElementById('mImg').src = fix(b.Link_Gambar);
+            document.getElementById('mTitle').innerText = b.Judul;
+            document.getElementById('mDate').innerText = b.Tanggal.split('T')[0];
+            document.getElementById('mDesc').innerHTML = (b.Isi_Lengkap || b.Ringkasan).replace(/\n/g,'<br>');
+            openModal('newsModal');
+        }
+
+        function kirimTestimoni(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnKirim');
+            btn.innerText='Mengirim...'; btn.disabled=true;
+            const data = {
+                nama: document.getElementById('tNama').value,
+                status: document.getElementById('tStatus').value,
+                kota: document.getElementById('tKota').value,
+                pesan: document.getElementById('tPesan').value,
+                rating: document.getElementById('tRating').value
+            };
+            fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
+            .then(()=>{ showToast('Testimoni terkirim!'); setTimeout(()=>location.reload(), 2000); })
+            .catch(()=>{ showToast('Gagal mengirim'); btn.innerText='Kirim'; btn.disabled=false; });
+        }
+    </script>
+</body>
+</html>
