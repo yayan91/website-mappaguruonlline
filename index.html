@@ -12,7 +12,7 @@
     
     <link rel="icon" href="https://drive.google.com/uc?export=view&id=1Wr_uC9C32tjzN19PZXLsk3tyBNrzO1wy">
     <meta property="og:title" content="MAPPAGURU ONLINE">
-    <meta property="og:description" content="Website Resmi Bimbingan Konseling & Aplikasi Pendidikan Gratis">
+    <meta property="og:description" content="Website Resmi Bimbingan Konseling & Aplikasi Pendidikan SMPN 16 Makassar">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -267,11 +267,61 @@
         .profil-box { background: var(--card-bg); color: var(--text); padding: 40px; border-radius: 20px; box-shadow: var(--shadow); margin-bottom: 30px; border-bottom: 4px solid var(--accent); }
         .no-data { text-align: center; padding: 40px; color: #999; width: 100%; grid-column: 1 / -1; }
 
+        /* --- TAMBAHAN CSS REVISI (UPDATE) --- */
+        
+        /* 1. Class untuk Geser Kanan-Kiri (Slider) */
+        .scroll-row { overflow-x: auto; padding: 10px 5px 20px 5px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        .scroll-flex { display: flex; gap: 15px; width: max-content; }
+        
+        /* UPDATE: Ukuran Item Slider Berita (Agar muat 4 di desktop) */
+        .scroll-item { width: 240px; flex-shrink: 0; } 
+        
+        /* UPDATE: Ukuran Item Slider Portal/Akses Cepat (Lebih kecil) */
+        .scroll-item-portal { width: 85px; flex-shrink: 0; } 
+
+        /* 2. Grid Berita Jadi 2 Kolom (Compact) */
+        .news-grid-compact { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
+        }
+        /* Kartu Berita Lebih Ringkas */
+        .card-compact { 
+            background: var(--card-bg); border-radius: 10px; overflow: hidden; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; 
+            border: 1px solid var(--border-color); height: 100%;
+        }
+        .card-compact img { height: 120px; object-fit: cover; } 
+        .card-compact .card-body { padding: 15px; }
+        .card-compact h3 { font-size: 0.95rem; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .meta-info { font-size: 0.7rem; color: #888; margin-bottom: 10px; display: flex; flex-direction: column; gap: 2px; }
+
+        /* 3. Tombol Selesai Baca */
+        .btn-selesai {
+            background: var(--primary); color: white; border: none;
+            padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;
+            cursor: pointer; display: flex; align-items: center; gap: 5px;
+        }
+        .btn-selesai:hover { background: var(--accent); color: var(--primary); }
+
+        /* Perbaikan Mobile agar tetap 2 kolom */
+        @media(max-width: 600px){
+            .news-grid-compact { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .card-compact .card-body { padding: 10px; }
+            /* UPDATE: Agar item berita slider tidak terlalu besar di HP */
+            .scroll-item { width: 220px; } 
+        }
+
         /* --- RESPONSIVE MOBILE FIXES --- */
         @media(max-width:1024px){ .app-grid { grid-template-columns: repeat(3, 1fr); } .stats-container { grid-template-columns: repeat(3, 1fr); } }
         @media(max-width:900px){ .footer-grid { grid-template-columns: 1fr 1fr; } .app-grid { grid-template-columns: repeat(2, 1fr); } }
         
         @media(max-width:768px){
+            /* UPDATE: TABEL COMPACT (Kecil di HP) */
+            th, td { padding: 8px 5px !important; font-size: 0.75rem !important; }
+            .table-res { max-height: 400px; }
+            .btn-card { padding: 4px 10px !important; font-size: 0.7rem !important; }
+
             /* Navbar Stick Top Fix & SCROLL MENU */
             header { top: 0; margin-bottom: 0; padding: 0; }
             .navbar { 
@@ -408,12 +458,18 @@
 
     <div id="newsModal" class="modal">
         <div class="modal-content" style="padding:0;">
-            <button class="close-btn" onclick="closeModal('newsModal')" style="color:white; text-shadow:0 0 5px black; top:10px; right:15px; z-index:10;">×</button>
-            <img id="mImg" src="" style="width:100%; height:300px; object-fit:cover;">
-            <div style="padding:30px;">
-                <h2 id="mTitle" style="color:var(--primary); margin-bottom:10px;"></h2>
-                <div id="mDate" style="color:#777; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;"></div>
-                <div id="mDesc" style="line-height:1.8; color:var(--text);"></div>
+            <img id="mImg" src="" style="width:100%; height:250px; object-fit:cover;">
+            <div style="padding:20px;">
+                <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:10px;">
+                    <h2 id="mTitle" style="color:var(--primary); font-size:1.3rem; margin:0; flex:1;"></h2>
+                    <button onclick="closeModal('newsModal')" class="btn-selesai">
+                        <i class="fas fa-check"></i> Selesai Baca
+                    </button>
+                </div>
+                
+                <div id="mMeta" style="font-size:0.8rem; color:#777; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                    </div>
+                <div id="mDesc" style="line-height:1.7; color:var(--text); font-size:0.95rem;"></div>
             </div>
         </div>
     </div>
@@ -526,12 +582,16 @@
 
         <div class="container" style="margin-bottom:50px;">
             <div class="title"><h2>Akses Cepat</h2></div>
-            <div class="portal-grid" id="portalContainer"></div>
+            <div class="scroll-row">
+                <div class="scroll-flex" id="portalContainer"></div>
+            </div>
         </div>
 
         <div class="container">
             <div class="title"><h2>Berita Terkini</h2></div>
-            <div class="grid" id="homeNews"></div>
+            <div class="scroll-row">
+                <div class="scroll-flex" id="homeNews"></div>
+            </div>
         </div>
     </div>
 
@@ -541,11 +601,11 @@
         <div class="container">
             <div class="title"><h2>Pusat Berita</h2></div>
             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Cari Berita..." onkeyup="cariData(this.value, 'newsGrid', '.card')">
+                <input type="text" class="search-input" placeholder="Cari Berita..." onkeyup="cariData(this.value, 'newsGrid', '.card-compact')">
                 <i class="fas fa-search search-icon"></i>
             </div>
             <div class="scroll-wrapper">
-                <div class="grid" id="newsGrid"></div>
+                <div class="news-grid-compact" id="newsGrid"></div>
             </div>
         </div>
     </div>
@@ -799,16 +859,34 @@
             const logo = p.find(x=>x.Kategori=='Logo');
             if(logo) document.getElementById('profLogo').innerHTML = `<div class="profil-box" style="text-align:center;"><img src="${fix(logo.Link_Gambar)}" style="width:120px; margin:0 auto 20px;"><p style="max-width:700px; margin:0 auto; line-height:1.8;">${logo.Konten_Teks}</p></div>`;
 
-            document.getElementById('homeNews').innerHTML = document.getElementById('newsGrid').innerHTML = (gBerita||[]).map((b,i)=>`
-                <div class="card">
+            // --- REVISI: BAGIAN BERITA ---
+            
+            // 1. Render untuk BERANDA (Slider / Geser Kiri Kanan)
+            document.getElementById('homeNews').innerHTML = (gBerita||[]).map((b,i)=>`
+                <div class="scroll-item">
+                    <div class="card-compact">
+                        <img src="${fix(b.Link_Gambar)}">
+                        <div class="card-body">
+                            <h3>${b.Judul}</h3>
+                             <div class="meta-info">
+                                <span><i class="far fa-calendar"></i> ${b.Tanggal.split('T')[0]}</span>
+                            </div>
+                            <button onclick="bukaBerita(${i})" class="btn-card" style="font-size:0.8rem;">Baca</button>
+                        </div>
+                    </div>
+                </div>`).join('');
+
+            // 2. Render untuk MENU BERITA UTAMA (Grid 2 Kolom)
+            document.getElementById('newsGrid').innerHTML = (gBerita||[]).map((b,i)=>`
+                <div class="card-compact">
                     <img src="${fix(b.Link_Gambar)}">
                     <div class="card-body">
                         <h3>${b.Judul}</h3>
-                        <div style="color:#888; font-size:0.8rem; margin-bottom:10px;">${b.Tanggal.split('T')[0]}</div>
-                        <div style="display:flex; align-items:center;">
-                            <button onclick="bukaBerita(${i})" class="btn-card">Baca</button>
-                            <button onclick="share('${b.Judul}', location.href)" class="share-btn"><i class="fas fa-share-alt"></i></button>
+                        <div class="meta-info">
+                            <span><i class="far fa-calendar"></i> ${b.Tanggal.split('T')[0]}</span>
+                            <span><i class="far fa-user"></i> ${b.Penulis || 'Admin'}</span>
                         </div>
+                        <button onclick="bukaBerita(${i})" class="btn-card" style="width:100%; margin-top:5px;">Baca</button>
                     </div>
                 </div>`).join('');
             
@@ -843,10 +921,17 @@
                 }).join('');
             } else { document.getElementById('ytContainer').innerHTML = '<p style="text-align:center;width:100%;color:#999">Belum ada video.</p>'; }
 
+            // --- REVISI: BAGIAN PORTAL/AKSES CEPAT (SLIDER KECIL) ---
             const portal = db.portal || [];
             if(portal.length > 0) {
-                document.getElementById('portalContainer').innerHTML = portal.map(p => `<a href="${p.Link_Url}" target="_blank" class="portal-btn"><img src="${fix(p.Icon_Url) || 'https://via.placeholder.com/50'}" class="portal-icon"><div class="portal-name">${p.Nama_Web}</div></a>`).join('');
-            } else { document.getElementById('portalContainer').innerHTML = '<p style="text-align:center; width:100%; color:#999;">Belum ada link cepat.</p>'; }
+                document.getElementById('portalContainer').innerHTML = portal.map(p => `
+                <a href="${p.Link_Url}" target="_blank" class="portal-btn scroll-item-portal" style="height:auto; padding:10px;">
+                    <img src="${fix(p.Icon_Url) || 'https://via.placeholder.com/50'}" class="portal-icon" style="width:35px; height:35px;">
+                    <div class="portal-name" style="font-size:0.7rem;">${p.Nama_Web}</div>
+                </a>`).join('');
+            } else { 
+                document.getElementById('portalContainer').innerHTML = '<p style="padding:10px; color:#999; text-align:center; width:100%;">Belum ada link.</p>'; 
+            }
         }
 
         function cariData(k, id, cls) {
@@ -894,12 +979,30 @@
             openModal('appModal');
         }
 
+        /* --- FUNGSI FORMAT BERITA --- */
+        function formatBerita(text) {
+            if(!text) return "";
+            return text.split('\n').map(line => {
+                line = line.trim();
+                if(line.match(/^[a-z]\.\s/i)) return `<div style="margin-left:30px; margin-bottom:5px;">${line}</div>`;
+                if(line.match(/^\d+\.\s/)) return `<div style="margin-bottom:5px; font-weight:600;">${line}</div>`;
+                if(line) return `<p style="text-align:justify; margin-bottom:10px;">${line}</p>`;
+                return '<br>';
+            }).join('');
+        }
+
+        // --- UPDATE: MENAMPILKAN PENULIS & TOMBOL SELESAI ---
         function bukaBerita(i) {
             const b = gBerita[i];
             document.getElementById('mImg').src = fix(b.Link_Gambar);
             document.getElementById('mTitle').innerText = b.Judul;
-            document.getElementById('mDate').innerText = b.Tanggal.split('T')[0];
-            document.getElementById('mDesc').innerHTML = (b.Isi_Lengkap || b.Ringkasan).replace(/\n/g,'<br>');
+            
+            // Masukkan data Penulis dan Tanggal
+            document.getElementById('mMeta').innerHTML = `
+                <i class="far fa-calendar-alt"></i> ${b.Tanggal.split('T')[0]}  |  
+                <i class="far fa-user"></i> ${b.Penulis || 'Admin'}`;
+            
+            document.getElementById('mDesc').innerHTML = formatBerita(b.Isi_Lengkap || b.Ringkasan);
             openModal('newsModal');
         }
 
@@ -921,4 +1024,3 @@
     </script>
 </body>
 </html>
-
