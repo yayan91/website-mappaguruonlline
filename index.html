@@ -121,7 +121,7 @@
         .btn-hero-outline { background: transparent; color: white; padding: 14px 35px; border-radius: 50px; font-weight: 600; border: 2px solid rgba(255,255,255,0.3); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
         .btn-hero-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
 
-        .stats-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; width: 100%; max-width: 1000px; margin-top: 20px; }
+        .stats-container { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; width: 100%; max-width: 1100px; margin-top: 20px; }
         .stat-card {
             background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; padding: 15px;
             text-align: center; transition: 0.3s; color: white; position: relative; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
@@ -131,6 +131,24 @@
         .stat-icon { font-size: 1.8rem; margin-bottom: 5px; color: var(--accent); }
         .stat-num { font-size: 1.8rem; font-weight: 700; font-family: 'Playfair Display'; }
         .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+
+        /* SHOWCASE / SOROTAN */
+        .showcase-box {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 20px; overflow: hidden; color: white;
+            display: flex; flex-wrap: wrap; align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative;
+            border: 2px solid var(--accent); margin-bottom: 40px;
+        }
+        .showcase-content { padding: 40px; flex: 1; min-width: 300px; z-index: 2; }
+        .showcase-img-box { flex: 1; min-width: 300px; height: 350px; position: relative; overflow: hidden; }
+        .showcase-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; mask-image: linear-gradient(to right, rgba(0,0,0,1) 80%, rgba(0,0,0,0)); -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 80%, rgba(0,0,0,0)); }
+        .showcase-box:hover .showcase-img { transform: scale(1.1); }
+        .badge-promo { background: var(--accent); color: var(--primary-dark); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; display: inline-block; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .showcase-title { font-family: 'Playfair Display'; font-size: 2.2rem; margin-bottom: 15px; line-height: 1.2; font-weight: bold; color: white; }
+        .showcase-desc { opacity: 0.9; margin-bottom: 25px; line-height: 1.6; font-size: 1.05rem; }
+        .btn-showcase { background: white; color: var(--primary); padding: 12px 30px; border-radius: 50px; font-weight: bold; border: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); cursor: pointer; font-size: 1rem; }
+        .btn-showcase:hover { background: var(--accent); transform: translateY(-3px); }
 
         /* KONTEN (SLIDER, PORTAL) */
         .yt-slider-wrapper { overflow-x: auto; padding: 20px 0; scroll-behavior: smooth; }
@@ -267,25 +285,17 @@
         .profil-box { background: var(--card-bg); color: var(--text); padding: 40px; border-radius: 20px; box-shadow: var(--shadow); margin-bottom: 30px; border-bottom: 4px solid var(--accent); }
         .no-data { text-align: center; padding: 40px; color: #999; width: 100%; grid-column: 1 / -1; }
 
-        /* --- TAMBAHAN CSS REVISI (UPDATE) --- */
-        
-        /* 1. Class untuk Geser Kanan-Kiri (Slider) */
+        /* --- CSS TAMBAHAN --- */
         .scroll-row { overflow-x: auto; padding: 10px 5px 20px 5px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         .scroll-flex { display: flex; gap: 15px; width: max-content; }
-        
-        /* UPDATE: Ukuran Item Slider Berita (Agar muat 4 di desktop) */
         .scroll-item { width: 240px; flex-shrink: 0; } 
-        
-        /* UPDATE: Ukuran Item Slider Portal/Akses Cepat (Lebih kecil) */
         .scroll-item-portal { width: 85px; flex-shrink: 0; } 
 
-        /* 2. Grid Berita Jadi 2 Kolom (Compact) */
         .news-grid-compact { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
             gap: 15px; 
         }
-        /* Kartu Berita Lebih Ringkas */
         .card-compact { 
             background: var(--card-bg); border-radius: 10px; overflow: hidden; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; flex-direction: column; 
@@ -296,7 +306,6 @@
         .card-compact h3 { font-size: 0.95rem; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .meta-info { font-size: 0.7rem; color: #888; margin-bottom: 10px; display: flex; flex-direction: column; gap: 2px; }
 
-        /* 3. Tombol Selesai Baca */
         .btn-selesai {
             background: var(--primary); color: white; border: none;
             padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;
@@ -304,11 +313,9 @@
         }
         .btn-selesai:hover { background: var(--accent); color: var(--primary); }
 
-        /* Perbaikan Mobile agar tetap 2 kolom */
         @media(max-width: 600px){
             .news-grid-compact { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .card-compact .card-body { padding: 10px; }
-            /* UPDATE: Agar item berita slider tidak terlalu besar di HP */
             .scroll-item { width: 220px; } 
         }
 
@@ -317,40 +324,41 @@
         @media(max-width:900px){ .footer-grid { grid-template-columns: 1fr 1fr; } .app-grid { grid-template-columns: repeat(2, 1fr); } }
         
         @media(max-width:768px){
-            /* UPDATE: TABEL COMPACT (Kecil di HP) */
+            /* Responsive Showcase */
+            .showcase-content { padding: 30px 20px; text-align: center; }
+            .showcase-img-box { height: 200px; }
+            .showcase-title { font-size: 1.5rem; }
+
             th, td { padding: 8px 5px !important; font-size: 0.75rem !important; }
             .table-res { max-height: 400px; }
             .btn-card { padding: 4px 10px !important; font-size: 0.7rem !important; }
 
-            /* Navbar Stick Top Fix & SCROLL MENU */
             header { top: 0; margin-bottom: 0; padding: 0; }
             .navbar { 
                 border-radius: 0; padding: 10px 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
                 display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
             }
-            .logo-area { width: 100%; justify-content: center; } /* Logo Tengah */
+            .logo-area { width: 100%; justify-content: center; } 
             
-            .hamburger { display: none !important; } /* Hapus tombol burger */
+            .hamburger { display: none !important; } 
             
-            /* MENU SCROLL SAMPING */
             .nav-menu { 
-                display: flex !important; /* Selalu tampil */
+                display: flex !important; 
                 position: relative; top: auto; left: auto; 
                 flex-direction: row; width: 100%; 
                 background: transparent; box-shadow: none; border: none; padding: 0; 
-                overflow-x: auto; /* Bisa discroll */
-                white-space: nowrap; /* Teks tidak turun */
-                gap: 10px; padding-bottom: 5px; /* Spasi bawah scroll */
+                overflow-x: auto; 
+                white-space: nowrap; 
+                gap: 10px; padding-bottom: 5px; 
             }
-            .nav-menu::-webkit-scrollbar { display: none; } /* Hilangkan scrollbar jelek */
+            .nav-menu::-webkit-scrollbar { display: none; } 
             .nav-link { 
                 font-size: 0.8rem; padding: 6px 15px; 
-                background: rgba(0,0,0,0.05); /* Warna background tipis */
-                flex-shrink: 0; /* Supaya tidak mengecil */
+                background: rgba(0,0,0,0.05); 
+                flex-shrink: 0; 
             }
             body.dark-mode .nav-link { background: rgba(255,255,255,0.05); }
 
-            /* Tampilan Konten */
             .top-bar { display: none; }
             .hero { height: auto; min-height: auto; padding-top: 40px; padding-bottom: 40px; border-radius: 0 0 40px 40px; margin-top: 0; }
             .hero-title-text { font-size: 1.8rem; line-height: 1.3; margin-bottom: 10px; }
@@ -359,13 +367,11 @@
             .hero-btns { flex-direction: column; gap: 10px; width: 100%; padding: 0 20px; }
             .btn-hero-primary, .btn-hero-outline { width: 100%; justify-content: center; font-size: 0.9rem; padding: 12px 20px; }
             
-            /* Footer Rapi */
             .footer-grid { display: flex; flex-direction: column; gap: 30px; text-align: center; } 
             .footer-col { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 30px; }
             .footer-col:last-child { border: none; }
             .map-frame { height: 200px; width: 100%; }
             
-            /* Grid Lain */
             .stats-container { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 15px; }
             .stat-num { font-size: 1.5rem; }
             .stat-icon { font-size: 1.4rem; }
@@ -381,7 +387,6 @@
             .title h2 { font-size: 1.6rem; }
             .container { padding: 0 15px; }
             
-            /* Float Button */
             .float-wa, .float-notif { width: 50px; height: 50px; font-size: 24px; bottom: 20px; }
             .float-donate { width: 40px; height: 40px; font-size: 16px; bottom: 80px; left: 20px; }
             .float-wa { right: 20px; }
@@ -470,6 +475,9 @@
                 <div id="mMeta" style="font-size:0.8rem; color:#777; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
                     </div>
                 <div id="mDesc" style="line-height:1.7; color:var(--text); font-size:0.95rem;"></div>
+                
+                <div id="disqus_thread" style="margin-top:30px; border-top:1px solid #eee; padding-top:20px;"></div>
+                
             </div>
         </div>
     </div>
@@ -513,6 +521,7 @@
                 <li><a onclick="nav(event, 'beranda')" class="nav-link active">Beranda</a></li>
                 <li><a onclick="nav(event, 'profil')" class="nav-link">Profil</a></li>
                 <li><a onclick="nav(event, 'berita')" class="nav-link">Berita</a></li>
+                <li><a onclick="nav(event, 'artikel')" class="nav-link">Artikel</a></li> 
                 <li><a onclick="nav(event, 'aplikasi')" class="nav-link">Aplikasi</a></li>
                 <li><a onclick="nav(event, 'dokumentasi')" class="nav-link">Dokumen</a></li>
                 <li><a onclick="nav(event, 'media')" class="nav-link">Materi</a></li>
@@ -537,6 +546,11 @@
                         <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
                         <div class="stat-num" id="statBerita">0</div>
                         <div class="stat-label">Berita</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-pen-nib"></i></div>
+                        <div class="stat-num" id="statArtikel">0</div>
+                        <div class="stat-label">Artikel</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon"><i class="fas fa-rocket"></i></div>
@@ -570,6 +584,8 @@
                 </div>
             </div>
         </div>
+
+        <div class="container" id="showcaseContainer" style="display:none; margin-bottom:40px;"></div>
 
         <div class="container" style="margin-bottom:50px;">
             <div class="title"><h2>Galeri Video</h2></div>
@@ -606,6 +622,22 @@
             </div>
             <div class="scroll-wrapper">
                 <div class="news-grid-compact" id="newsGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="artikel" class="section">
+        <div class="container">
+            <div class="title"><h2>Artikel & Tulisan</h2></div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cari Artikel..." onkeyup="cariData(this.value, 'artikelGrid', '.card-compact')">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div class="scroll-wrapper">
+                <div class="news-grid-compact" id="artikelGrid"></div>
+                <div class="no-data" id="artikelEmpty" style="display:none;">
+                    <i class="fas fa-pen-nib" style="font-size:2rem; margin-bottom:10px;"></i><br>Belum ada artikel.
+                </div>
             </div>
         </div>
     </div>
@@ -707,7 +739,11 @@
         const API = 'https://script.google.com/macros/s/AKfycbyuR_NpM7NQ2iUbok7nhUGZbumtl6kjlH9aa9smLCYfgEwyETcfh_vWZay0IZqAingY/exec'; 
         const LOGO_ID = '1Wr_uC9C32tjzN19PZXLsk3tyBNrzO1wy'; 
 
-        let gBerita=[], gMotiv=[], gApps=[];
+        // --- DISQUS CONFIGURATION ---
+        var disqus_shortname = 'https-mappaguruonline-my-id'; // Shortname Sahabat
+        var disqus_loaded = false; // Penanda apakah script sudah dimuat
+
+        let gBerita=[], gMotiv=[], gApps=[], gArtikel=[];
 
         // --- BACK TO TOP SCROLL ---
         window.onscroll = function() {
@@ -814,6 +850,7 @@
                 const res = await req.json();
                 
                 gBerita = res.berita || [];
+                gArtikel = res.artikel || []; 
                 gMotiv = res.motivasi || [];
                 gApps = res.aplikasi || [];
                 
@@ -840,13 +877,40 @@
             }
             return url;
         }
+        
+        function getConf(arr, key) {
+            const f = arr.find(x => x.Key === key);
+            return f ? f.Value : '';
+        }
 
         function render(db) {
             document.getElementById('statBerita').innerText = (db.berita || []).length;
+            document.getElementById('statArtikel').innerText = (db.artikel || []).length; 
             document.getElementById('statApp').innerText = (db.aplikasi || []).length;
             document.getElementById('statDoc').innerText = (db.dokumentasi || []).length;
             document.getElementById('statMedia').innerText = (db.media || []).length;
             document.getElementById('statTesti').innerText = (db.testimoni || []).length;
+            
+            const conf = db.config || [];
+            const scStatus = getConf(conf, 'Showcase_Status');
+            if(scStatus && scStatus.toLowerCase() === 'aktif'){
+                 const scHtml = `
+                    <div class="showcase-box">
+                        <div class="showcase-content">
+                            <div class="badge-promo">SOROTAN UTAMA</div>
+                            <h2 class="showcase-title">${getConf(conf, 'Showcase_Judul')}</h2>
+                            <p class="showcase-desc">${getConf(conf, 'Showcase_Deskripsi')}</p>
+                            <a href="${getConf(conf, 'Showcase_Link')}" target="_blank">
+                                <button class="btn-showcase">Lihat Selengkapnya <i class="fas fa-arrow-right"></i></button>
+                            </a>
+                        </div>
+                        <div class="showcase-img-box">
+                            <img src="${fix(getConf(conf, 'Showcase_Gambar'))}" class="showcase-img">
+                        </div>
+                    </div>`;
+                 document.getElementById('showcaseContainer').innerHTML = scHtml;
+                 document.getElementById('showcaseContainer').style.display = 'block';
+            }
 
             const p = db.profil || [];
             const samb = p.find(x=>x.Kategori=='Sambutan');
@@ -859,9 +923,6 @@
             const logo = p.find(x=>x.Kategori=='Logo');
             if(logo) document.getElementById('profLogo').innerHTML = `<div class="profil-box" style="text-align:center;"><img src="${fix(logo.Link_Gambar)}" style="width:120px; margin:0 auto 20px;"><p style="max-width:700px; margin:0 auto; line-height:1.8;">${logo.Konten_Teks}</p></div>`;
 
-            // --- REVISI: BAGIAN BERITA ---
-            
-            // 1. Render untuk BERANDA (Slider / Geser Kiri Kanan)
             document.getElementById('homeNews').innerHTML = (gBerita||[]).map((b,i)=>`
                 <div class="scroll-item">
                     <div class="card-compact">
@@ -876,7 +937,6 @@
                     </div>
                 </div>`).join('');
 
-            // 2. Render untuk MENU BERITA UTAMA (Grid 2 Kolom)
             document.getElementById('newsGrid').innerHTML = (gBerita||[]).map((b,i)=>`
                 <div class="card-compact">
                     <img src="${fix(b.Link_Gambar)}">
@@ -889,6 +949,24 @@
                         <button onclick="bukaBerita(${i})" class="btn-card" style="width:100%; margin-top:5px;">Baca</button>
                     </div>
                 </div>`).join('');
+            
+            const artikelList = db.artikel || [];
+            if(artikelList.length > 0) {
+                 document.getElementById('artikelGrid').innerHTML = artikelList.map((b,i)=>`
+                <div class="card-compact">
+                    <img src="${fix(b.Link_Gambar)}">
+                    <div class="card-body">
+                        <h3>${b.Judul}</h3>
+                        <div class="meta-info">
+                            <span><i class="far fa-calendar"></i> ${b.Tanggal.split('T')[0]}</span>
+                            <span><i class="far fa-user"></i> ${b.Penulis || 'Admin'}</span>
+                        </div>
+                        <button onclick="bukaArtikel(${i})" class="btn-card" style="width:100%; margin-top:5px;">Baca</button>
+                    </div>
+                </div>`).join('');
+            } else {
+                document.getElementById('artikelEmpty').style.display = 'block';
+            }
             
             document.getElementById('appGrid').innerHTML = (db.aplikasi||[]).map((a,i)=>`
                 <div class="app-card" onclick="bukaApp(${i})">
@@ -921,7 +999,6 @@
                 }).join('');
             } else { document.getElementById('ytContainer').innerHTML = '<p style="text-align:center;width:100%;color:#999">Belum ada video.</p>'; }
 
-            // --- REVISI: BAGIAN PORTAL/AKSES CEPAT (SLIDER KECIL) ---
             const portal = db.portal || [];
             if(portal.length > 0) {
                 document.getElementById('portalContainer').innerHTML = portal.map(p => `
@@ -979,7 +1056,6 @@
             openModal('appModal');
         }
 
-        /* --- FUNGSI FORMAT BERITA --- */
         function formatBerita(text) {
             if(!text) return "";
             return text.split('\n').map(line => {
@@ -991,19 +1067,63 @@
             }).join('');
         }
 
-        // --- UPDATE: MENAMPILKAN PENULIS & TOMBOL SELESAI ---
+        // --- FUNGSI LOAD DISQUS ---
+        function loadDisqus(id, title) {
+            // Bersihkan judul untuk dijadikan ID URL yang cantik
+            var cleanId = title.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+            
+            var disqus_config = function () {
+                this.page.url = window.location.href + '#!/' + cleanId; 
+                this.page.identifier = cleanId; 
+                this.page.title = title;
+            };
+
+            if (!disqus_loaded) {
+                // Load script pertama kali
+                var d = document, s = d.createElement('script');
+                s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                disqus_loaded = true;
+            } else {
+                // Reset untuk SPA
+                DISQUS.reset({
+                    reload: true,
+                    config: function () {
+                        this.page.identifier = cleanId;
+                        this.page.url = window.location.href + '#!/' + cleanId;
+                        this.page.title = title;
+                    }
+                });
+            }
+        }
+
         function bukaBerita(i) {
             const b = gBerita[i];
             document.getElementById('mImg').src = fix(b.Link_Gambar);
             document.getElementById('mTitle').innerText = b.Judul;
-            
-            // Masukkan data Penulis dan Tanggal
             document.getElementById('mMeta').innerHTML = `
-                <i class="far fa-calendar-alt"></i> ${b.Tanggal.split('T')[0]}  |  
+                <i class="far fa-calendar-alt"></i> ${b.Tanggal.split('T')[0]}  |   
                 <i class="far fa-user"></i> ${b.Penulis || 'Admin'}`;
-            
             document.getElementById('mDesc').innerHTML = formatBerita(b.Isi_Lengkap || b.Ringkasan);
             openModal('newsModal');
+            
+            // Panggil Disqus
+            loadDisqus('berita-'+i, b.Judul);
+        }
+
+        function bukaArtikel(i) {
+            const b = gArtikel[i];
+            document.getElementById('mImg').src = fix(b.Link_Gambar);
+            document.getElementById('mTitle').innerText = b.Judul;
+            document.getElementById('mMeta').innerHTML = `
+                <i class="far fa-calendar-alt"></i> ${b.Tanggal.split('T')[0]}  |   
+                <i class="far fa-user"></i> ${b.Penulis || 'Admin'}`;
+            document.getElementById('mDesc').innerHTML = formatBerita(b.Isi_Lengkap || b.Ringkasan);
+            openModal('newsModal');
+            
+            // Panggil Disqus
+            loadDisqus('artikel-'+i, b.Judul);
         }
 
         function kirimTestimoni(e) {
