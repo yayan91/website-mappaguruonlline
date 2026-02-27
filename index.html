@@ -135,18 +135,51 @@
         .stat-num { font-size: 1.8rem; font-weight: 700; font-family: 'Playfair Display'; }
         .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
 
-        /* SHOWCASE / SOROTAN */
+        /* SHOWCASE / SOROTAN (BISA DIGESER) */
+        .showcase-wrapper {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 15px;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .showcase-wrapper::-webkit-scrollbar { height: 8px; }
+        .showcase-wrapper::-webkit-scrollbar-track { background: var(--border-color); border-radius: 10px; }
+        .showcase-wrapper::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
         .showcase-box {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border-radius: 20px; overflow: hidden; color: white;
             display: flex; flex-wrap: wrap; align-items: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative;
-            border: 2px solid var(--accent); margin-bottom: 40px;
+            border: 2px solid var(--accent); 
+            min-width: 100%; /* Memaksa tiap item selebar layar penuh */
+            scroll-snap-align: center;
         }
         .showcase-content { padding: 40px; flex: 1; min-width: 300px; z-index: 2; }
-        .showcase-img-box { flex: 1; min-width: 300px; height: 350px; position: relative; overflow: hidden; }
-        .showcase-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; mask-image: linear-gradient(to right, rgba(0,0,0,1) 80%, rgba(0,0,0,0)); -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 80%, rgba(0,0,0,0)); }
-        .showcase-box:hover .showcase-img { transform: scale(1.1); }
+        
+        /* Area gambar dikecilkan porsinya */
+        .showcase-img-box { 
+            flex: 0.7; 
+            min-width: 250px; 
+            height: 250px; 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            background: rgba(0,0,0,0.1); /* Latar belakang tipis agar gambar menonjol */
+        }
+        
+        /* Gambar dibuat utuh (contain) tidak terpotong */
+        .showcase-img { 
+            width: 90%; 
+            height: 90%; 
+            object-fit: contain; 
+            transition: 0.5s; 
+        }
+        .showcase-box:hover .showcase-img { transform: scale(1.05); }
         .badge-promo { background: var(--accent); color: var(--primary-dark); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; display: inline-block; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .showcase-title { font-family: 'Playfair Display'; font-size: 2.2rem; margin-bottom: 15px; line-height: 1.2; font-weight: bold; color: white; }
         .showcase-desc { opacity: 0.9; margin-bottom: 25px; line-height: 1.6; font-size: 1.05rem; }
@@ -292,7 +325,7 @@
         .scroll-row { overflow-x: auto; padding: 10px 5px 20px 5px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         .scroll-flex { display: flex; gap: 15px; width: max-content; }
         .scroll-item { width: 240px; flex-shrink: 0; } 
-        .scroll-item-portal { width: 85px; flex-shrink: 0; } 
+        .scroll-item-portal { width: 200px; flex-shrink: 0; } 
 
         .news-grid-compact { 
             display: grid; 
@@ -326,7 +359,7 @@
         @media(max-width:1024px){ .app-grid { grid-template-columns: repeat(3, 1fr); } .stats-container { grid-template-columns: repeat(3, 1fr); } }
         @media(max-width:900px){ .footer-grid { grid-template-columns: 1fr 1fr; } .app-grid { grid-template-columns: repeat(2, 1fr); } }
         
-        @media(max-width:768px){
+        @media(max-width:992px){
             /* Responsive Showcase */
             .showcase-content { padding: 30px 20px; text-align: center; }
             .showcase-img-box { height: 200px; }
@@ -354,7 +387,19 @@
                 white-space: nowrap; 
                 gap: 10px; padding-bottom: 5px; 
             }
-            .nav-menu::-webkit-scrollbar { display: none; } 
+            /* --- TAMPILAN SCROLLBAR MENU HP/TABLET --- */
+            .nav-menu::-webkit-scrollbar { 
+                display: block; 
+                height: 6px; /* Ketebalan garis scroll */
+            } 
+            .nav-menu::-webkit-scrollbar-track { 
+                background: var(--border-color); /* Warna dasar jalur scroll */
+                border-radius: 10px; 
+            }
+            .nav-menu::-webkit-scrollbar-thumb { 
+                background: var(--accent); /* Warna emas khas Mappaguru */
+                border-radius: 10px; 
+            } 
             .nav-link { 
                 font-size: 0.8rem; padding: 6px 15px; 
                 background: rgba(0,0,0,0.05); 
@@ -395,6 +440,116 @@
             .float-wa { right: 20px; }
             .float-notif { left: 20px; }
         }
+		
+		/* --- TAMPILAN DOKUMEN MODERN --- */
+         .filter-pills { 
+            display: flex; 
+            justify-content: center; /* Membawa barisan tombol ke tengah */
+            gap: 10px; 
+            margin-bottom: 20px; 
+            overflow-x: auto; 
+            padding-bottom: 5px; 
+            scroll-behavior: smooth; 
+        }
+        .filter-pills::-webkit-scrollbar { display: none; }
+        
+        .filter-btn { 
+            display: inline-flex; /* Agar ikon dan teks sejajar rapi */
+            align-items: center;
+            justify-content: center;
+            gap: 8px; /* Memberi jarak antara ikon dan tulisan */
+            padding: 8px 20px; 
+            border-radius: 50px; 
+            border: 1px solid var(--border-color); 
+            background: var(--card-bg); 
+            color: var(--text); 
+            cursor: pointer; 
+            transition: 0.3s; 
+            white-space: nowrap; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+        }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: var(--primary-dark); border-color: var(--accent); }
+        
+        .doc-list { display: flex; flex-direction: column; gap: 15px; }
+        .doc-item { display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 15px 20px; border-radius: 15px; box-shadow: var(--shadow); border: 1px solid var(--border-color); transition: 0.3s; }
+        .doc-item:hover { transform: translateX(5px); border-color: var(--accent); }
+        .doc-left { display: flex; align-items: center; gap: 18px; flex: 1; }
+        .doc-icon { font-size: 2.5rem; }
+        .icon-pdf { color: #e74c3c; } .icon-word { color: #2980b9; } .icon-excel { color: #27ae60; } .icon-default { color: #95a5a6; }
+        .doc-title { font-weight: 700; color: var(--primary); margin-bottom: 5px; font-size: 1.05rem; line-height: 1.3; }
+        .doc-meta { font-size: 0.8rem; color: #777; }
+        
+        @media(max-width: 600px) { 
+            .doc-item { flex-direction: column; align-items: flex-start; gap: 15px; } 
+            .doc-action { width: 100%; }
+            .doc-action .btn-hero-primary { width: 100%; justify-content: center; }
+        }
+		
+		/* --- TAMPILAN MATERI (COURSE CARDS) --- */
+        .materi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 10px 5px;
+        }
+        .materi-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--accent); /* Garis emas di atas kartu */
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+        .materi-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-top-color: var(--primary); /* Berubah biru saat disentuh */
+        }
+        .materi-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-dark);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .materi-icon-box {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 43, 91, 0.05); /* Latar ikon transparan */
+            color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .materi-mapel {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+        .materi-topik {
+            font-size: 0.85rem;
+            color: var(--text);
+            margin-bottom: 20px;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+		
     </style>
 </head>
 <body>
@@ -661,22 +816,51 @@
     <div id="dokumentasi" class="section">
         <div class="container">
             <div class="title"><h2>Arsip Dokumen</h2></div>
-             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Cari Dokumen..." onkeyup="cariTabel(this.value, 'docBody')">
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cari Dokumen..." onkeyup="cariList(this.value, 'docContainer')">
                 <i class="fas fa-search search-icon"></i>
             </div>
-            <div class="table-res"><table><thead><tr><th>Nama</th><th>Tipe</th><th>Tanggal</th><th>Aksi</th></tr></thead><tbody id="docBody"></tbody></table></div>
+            
+            <div class="filter-pills">
+                <button class="filter-btn active" onclick="filterDoc('semua', this)">Semua Format</button>
+                <button class="filter-btn" onclick="filterDoc('pdf', this)"><i class="fas fa-file-pdf"></i> PDF</button>
+                <button class="filter-btn" onclick="filterDoc('word', this)"><i class="fas fa-file-word"></i> Word</button>
+                <button class="filter-btn" onclick="filterDoc('excel', this)"><i class="fas fa-file-excel"></i> Excel</button>
+            </div>
+            
+            <div class="scroll-wrapper" style="max-height: 600px;">
+                <div class="doc-list" id="docContainer"></div>
+                <div class="no-data" id="docEmpty" style="display:none;">
+                    <i class="fas fa-folder-open" style="font-size:2rem; margin-bottom:10px;"></i><br>Dokumen tidak ditemukan
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="media" class="section">
         <div class="container">
             <div class="title"><h2>Unduhan Materi</h2></div>
-             <div class="search-container">
-                <input type="text" class="search-input" placeholder="Cari Materi (Mapel/Topik)..." onkeyup="cariTabel(this.value, 'mediaBody')">
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cari Materi (Mapel/Topik)..." onkeyup="cariMateri(this.value, 'materiContainer')">
                 <i class="fas fa-search search-icon"></i>
             </div>
-            <div class="table-res"><table><thead><tr><th>Mapel</th><th>Topik</th><th>Kelas</th><th>Aksi</th></tr></thead><tbody id="mediaBody"></tbody></table></div>
+            
+            <div class="filter-pills">
+                <button class="filter-btn active" onclick="filterMateri('semua', this)">Semua Kelas</button>
+                <button class="filter-btn" onclick="filterMateri('7', this)">Kelas 7</button>
+                <button class="filter-btn" onclick="filterMateri('8', this)">Kelas 8</button>
+                <button class="filter-btn" onclick="filterMateri('9', this)">Kelas 9</button>
+                <button class="filter-btn" onclick="filterMateri('umum', this)">Umum / BK</button>
+            </div>
+
+            <div class="scroll-wrapper" style="max-height: 600px;">
+                <div class="materi-grid" id="materiContainer"></div>
+                <div class="no-data" id="materiEmpty" style="display:none;">
+                    <i class="fas fa-book-reader" style="font-size:2rem; margin-bottom:10px;"></i><br>Materi tidak ditemukan
+                </div>
+            </div>
         </div>
     </div>
     
@@ -894,25 +1078,34 @@
             document.getElementById('statMedia').innerText = (db.media || []).length;
             document.getElementById('statTesti').innerText = (db.testimoni || []).length;
             
-            const conf = db.config || [];
-            const scStatus = getConf(conf, 'Showcase_Status');
-            if(scStatus && scStatus.toLowerCase() === 'aktif'){
-                 const scHtml = `
+            // Mengambil array data dari tab Sorotan di backend
+            const sorotanData = db.sorotan || []; 
+            
+            if(sorotanData.length > 0) {
+                // Membuat bungkus luar untuk area geser
+                let scHtml = '<div class="showcase-wrapper">';
+                
+                // Looping berapapun data yang ada di Google Sheets
+                sorotanData.forEach(item => {
+                    scHtml += `
                     <div class="showcase-box">
                         <div class="showcase-content">
                             <div class="badge-promo">SOROTAN UTAMA</div>
-                            <h2 class="showcase-title">${getConf(conf, 'Showcase_Judul')}</h2>
-                            <p class="showcase-desc">${getConf(conf, 'Showcase_Deskripsi')}</p>
-                            <a href="${getConf(conf, 'Showcase_Link')}" target="_blank">
+                            <h2 class="showcase-title">${item.Judul}</h2>
+                            <p class="showcase-desc">${item.Deskripsi}</p>
+                            <a href="${item.Link}" target="_blank">
                                 <button class="btn-showcase">Lihat Selengkapnya <i class="fas fa-arrow-right"></i></button>
                             </a>
                         </div>
                         <div class="showcase-img-box">
-                            <img src="${fix(getConf(conf, 'Showcase_Gambar'))}" class="showcase-img">
+                            <img src="${fix(item.Gambar)}" class="showcase-img">
                         </div>
                     </div>`;
-                 document.getElementById('showcaseContainer').innerHTML = scHtml;
-                 document.getElementById('showcaseContainer').style.display = 'block';
+                });
+                
+                scHtml += '</div>'; // Tutup wrapper
+                document.getElementById('showcaseContainer').innerHTML = scHtml;
+                document.getElementById('showcaseContainer').style.display = 'block';
             }
 
             const p = db.profil || [];
@@ -978,8 +1171,70 @@
                     <div class="app-cat">${a.Kategori}</div>
                 </div>`).join('');
             
-            document.getElementById('docBody').innerHTML = (db.dokumentasi||[]).map(d=>`<tr><td><b>${d.Nama_Dokumen}</b></td><td><span style="background:#eee;padding:4px 10px;border-radius:20px;font-size:0.8rem;color:#333;">${d.Jenis_File}</span></td><td>${d.Tanggal_Upload.split('T')[0]}</td><td><a href="${d.Link_Download}" class="btn-card" style="font-size:0.8rem;"><i class="fas fa-download"></i> Unduh</a></td></tr>`).join('');
-            document.getElementById('mediaBody').innerHTML = (db.media||[]).map(m=>`<tr><td><b>${m.Mata_Pelajaran}</b><br><small>${m.Topik}</small></td><td>Materi</td><td>${m.Kelas}</td><td><a href="${m.Link_Materi}" class="btn-card" style="font-size:0.8rem;"><i class="fas fa-download"></i> Unduh</a></td></tr>`).join('');
+            // --- RENDER DOKUMEN MODERN ---
+            const docs = db.dokumentasi || [];
+            if(docs.length > 0) {
+                document.getElementById('docContainer').innerHTML = docs.map(d => {
+                    let fileType = (d.Jenis_File || '').toLowerCase();
+                    let iconClass = 'fas fa-file icon-default';
+                    
+                    // Logika deteksi otomatis ikon file
+                    if(fileType.includes('pdf')) iconClass = 'fas fa-file-pdf icon-pdf';
+                    else if(fileType.includes('doc') || fileType.includes('word')) iconClass = 'fas fa-file-word icon-word';
+                    else if(fileType.includes('xls') || fileType.includes('excel')) iconClass = 'fas fa-file-excel icon-excel';
+                    else if(fileType.includes('ppt')) iconClass = 'fas fa-file-powerpoint icon-excel'; // PPT pakai warna excel/oranye
+                    
+                    return `
+                    <div class="doc-item" data-type="${fileType}">
+                        <div class="doc-left">
+                            <i class="${iconClass} doc-icon"></i>
+                            <div>
+                                <div class="doc-title">${d.Nama_Dokumen}</div>
+                                <div class="doc-meta"><i class="far fa-calendar-alt"></i> ${d.Tanggal_Upload.split('T')[0]} <span style="margin:0 8px;">•</span> <strong style="text-transform:uppercase; color:var(--primary);">${d.Jenis_File}</strong></div>
+                            </div>
+                        </div>
+                        <div class="doc-action">
+                            <a href="${d.Link_Download}" target="_blank" class="btn-hero-primary" style="padding: 10px 25px; font-size: 0.85rem; box-shadow:none;"><i class="fas fa-download"></i> Unduh</a>
+                        </div>
+                    </div>`;
+                }).join('');
+            } else {
+                document.getElementById('docEmpty').style.display = 'block';
+            }
+			// --- RENDER MATERI MODERN (KARTU KELAS) ---
+            const mediaList = db.media || [];
+            if(mediaList.length > 0) {
+                document.getElementById('materiContainer').innerHTML = mediaList.map(m => {
+                    let mapel = (m.Mata_Pelajaran || '').toLowerCase();
+                    let iconMapel = 'fas fa-book'; // Default ikon buku
+                    
+                    // Cerdas memilih ikon berdasarkan nama mapel (Termasuk fitur Guru BK)
+                    if(mapel.includes('matematika')) iconMapel = 'fas fa-calculator';
+                    else if(mapel.includes('ipa') || mapel.includes('sains') || mapel.includes('biologi')) iconMapel = 'fas fa-flask';
+                    else if(mapel.includes('bahasa') || mapel.includes('inggris')) iconMapel = 'fas fa-language';
+                    else if(mapel.includes('agama') || mapel.includes('pai')) iconMapel = 'fas fa-star-and-crescent';
+                    else if(mapel.includes('bk') || mapel.includes('bimbingan') || mapel.includes('konseling')) iconMapel = 'fas fa-hands-helping';
+                    else if(mapel.includes('seni') || mapel.includes('budaya')) iconMapel = 'fas fa-palette';
+                    else if(mapel.includes('pkn') || mapel.includes('pancasila')) iconMapel = 'fas fa-flag';
+                    else if(mapel.includes('penjas') || mapel.includes('olahraga')) iconMapel = 'fas fa-running';
+                    else if(mapel.includes('tik') || mapel.includes('komputer') || mapel.includes('informatika')) iconMapel = 'fas fa-laptop-code';
+
+                    // Menentukan class untuk filter (ambil angka atau kata kuncinya)
+                    let kelasRaw = (m.Kelas || '').toString().toLowerCase();
+                    let kelasFilter = kelasRaw.includes('7') ? '7' : (kelasRaw.includes('8') ? '8' : (kelasRaw.includes('9') ? '9' : 'umum'));
+
+                    return `
+                    <div class="materi-card" data-kelas="${kelasFilter}">
+                        <div class="materi-badge">${m.Kelas}</div>
+                        <div class="materi-icon-box"><i class="${iconMapel}"></i></div>
+                        <div class="materi-mapel">${m.Mata_Pelajaran}</div>
+                        <div class="materi-topik">${m.Topik}</div>
+                        <a href="${m.Link_Materi}" target="_blank" class="btn-card" style="width: 100%; text-align: center; display: block; background: var(--border-color); color: var(--primary-dark);"><i class="fas fa-cloud-download-alt"></i> Unduh Materi</a>
+                    </div>`;
+                }).join('');
+            } else {
+                document.getElementById('materiEmpty').style.display = 'block';
+            }
             document.getElementById('testiGrid').innerHTML = (db.testimoni||[]).map(t=>`<div class="testi-card"><div style="color:#f1c40f; margin-bottom:10px;">${"⭐".repeat(t.Rating||5)}</div><p style="font-style:italic; margin-bottom:15px; opacity:0.8;">"${t.Isi_Testimoni}"</p><div style="font-weight:bold; color:var(--primary);">${t.Nama}</div><div style="font-size:0.8rem; opacity:0.7;">${t.Status} <span style="color:var(--accent)">•</span> ${t.Kota || ''}</div></div>`).join('');
             
             const faqData = db.faq || [];
@@ -1005,9 +1260,9 @@
             const portal = db.portal || [];
             if(portal.length > 0) {
                 document.getElementById('portalContainer').innerHTML = portal.map(p => `
-                <a href="${p.Link_Url}" target="_blank" class="portal-btn scroll-item-portal" style="height:auto; padding:10px;">
-                    <img src="${fix(p.Icon_Url) || 'https://via.placeholder.com/50'}" class="portal-icon" style="width:35px; height:35px;">
-                    <div class="portal-name" style="font-size:0.7rem;">${p.Nama_Web}</div>
+                <a href="${p.Link_Url}" target="_blank" class="portal-btn scroll-item-portal" style="height:auto; padding:25px 15px; border-radius:15px;">
+                    <img src="${fix(p.Icon_Url) || 'https://via.placeholder.com/50'}" style="width:65px; height:65px; object-fit:contain; margin-bottom:15px; border-radius:15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    <div class="portal-name" style="font-size:1rem; line-height:1.3; color:var(--primary);">${p.Nama_Web}</div>
                 </a>`).join('');
             } else { 
                 document.getElementById('portalContainer').innerHTML = '<p style="padding:10px; color:#999; text-align:center; width:100%;">Belum ada link.</p>'; 
@@ -1032,6 +1287,71 @@
         function cariTabel(k, id) {
             const rows = document.getElementById(id).querySelectorAll('tr');
             rows.forEach(r => { r.style.display = r.innerText.toLowerCase().includes(k.toLowerCase()) ? '' : 'none'; });
+        }
+		
+		// Fungsi untuk Filter Tombol (PDF, Word, Excel)
+        function filterDoc(type, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            
+            const items = document.querySelectorAll('.doc-item');
+            items.forEach(item => {
+                if(type === 'semua' || item.getAttribute('data-type').includes(type)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Fix untuk HP agar display flex/column tetap responsif
+            if(window.innerWidth <= 600) {
+                items.forEach(item => { if(item.style.display === 'flex') item.style.display = 'flex'; });
+            }
+        }
+
+        // Fungsi Cari Khusus untuk List Modern
+        function cariList(k, id) {
+            const items = document.getElementById(id).querySelectorAll('.doc-item');
+            let found = false;
+            items.forEach(el => {
+                if(el.innerText.toLowerCase().includes(k.toLowerCase())) {
+                    el.style.display = window.innerWidth <= 600 ? 'flex' : 'flex'; 
+                    found = true;
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+            document.getElementById('docEmpty').style.display = found ? 'none' : 'block';
+        }
+		
+		// Fungsi untuk Filter Kelas pada Materi
+        function filterMateri(kelas, btn) {
+            document.querySelectorAll('#media .filter-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            
+            const items = document.querySelectorAll('.materi-card');
+            items.forEach(item => {
+                if(kelas === 'semua' || item.getAttribute('data-kelas') === kelas) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Fungsi Cari Khusus untuk Kartu Materi
+        function cariMateri(k, id) {
+            const items = document.getElementById(id).querySelectorAll('.materi-card');
+            let found = false;
+            items.forEach(el => {
+                if(el.innerText.toLowerCase().includes(k.toLowerCase())) {
+                    el.style.display = 'flex'; 
+                    found = true;
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+            document.getElementById('materiEmpty').style.display = found ? 'none' : 'block';
         }
 
         function nav(e, id) {
@@ -1147,8 +1467,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
